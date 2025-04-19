@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameStateBase.h"
+#include "GameFramework/GameModeBase.h"
 #include "TPSCombatGameMode.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TPSCOMBAT_API ATPSCombatGameMode : public AGameStateBase
+class TPSCOMBAT_API ATPSCombatGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	
