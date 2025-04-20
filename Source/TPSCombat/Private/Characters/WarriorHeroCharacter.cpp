@@ -9,6 +9,7 @@
 #include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "Components/Input/TPSCombatInputComponent.h"
 #include "TPSCombatGameplayTags.h"
+#include "Components/Combat/HeroCombatComponent.h"
 #include "AbilitySystem/TPSCombatAbilitySystemComponent.h"
 #include "AbilitySystem/TPSCombatAttributeSet.h"
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
@@ -37,6 +38,8 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
 	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.0f;
+
+	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
 }
 
 void AWarriorHeroCharacter::PossessedBy(AController* NewController)

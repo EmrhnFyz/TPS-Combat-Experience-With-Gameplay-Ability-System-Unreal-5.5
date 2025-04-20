@@ -3,6 +3,8 @@
 
 #include "AbilitySystem/Abilities/TPSCombatGameplayAbility.h"
 #include  "AbilitySystem/TPSCombatAbilitySystemComponent.h"
+#include "Components/Combat/PawnCombatComponent.h"
+
 
 void UTPSCombatGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -27,4 +29,14 @@ void UTPSCombatGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Hand
 			ActorInfo->AbilitySystemComponent->ClearAbility(Handle);
 		}
 	}
+}
+
+UPawnCombatComponent* UTPSCombatGameplayAbility::GetPawnCombatComponentFromActorInfo() const
+{
+	return GetAvatarActorFromActorInfo()->FindComponentByClass<UPawnCombatComponent>();
+}
+
+UTPSCombatAbilitySystemComponent* UTPSCombatGameplayAbility::GetTPSCombatAbilitySystemComponentFromActorInfo() const
+{
+	return Cast<UTPSCombatAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
 }

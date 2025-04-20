@@ -4,7 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
+#include  "AbilitySystem/TPSCombatAbilitySystemComponent.h"
 #include "TPSCombatGameplayAbility.generated.h"
+
+class UPawnCombatComponent;
+class UTPSCombatAbilitySystemComponent;
 
 UENUM(BlueprintType)
 enum class EWarriorAbilityActivationPolicy : uint8
@@ -27,4 +31,10 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category="TPSCombatAbility")
 	EWarriorAbilityActivationPolicy AbilityActivationPolicy = EWarriorAbilityActivationPolicy::OnTriggered;
+
+	UFUNCTION(BlueprintPure, Category="TPSCombat|Ability")
+	UPawnCombatComponent* GetPawnCombatComponentFromActorInfo() const;
+
+	UFUNCTION(BlueprintPure, Category="TPSCombat|Ability")
+	UTPSCombatAbilitySystemComponent* GetTPSCombatAbilitySystemComponentFromActorInfo() const;
 };
