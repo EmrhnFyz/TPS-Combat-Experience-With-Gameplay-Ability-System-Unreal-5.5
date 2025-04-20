@@ -2,12 +2,12 @@
 
 
 #include "AnimInstances/TPSCombatCharacterAnimInstance.h"
-#include "Characters/WarriorBaseCharacter.h"
+#include "Characters/TPSCombatBaseCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 void UTPSCombatCharacterAnimInstance::NativeInitializeAnimation()
 {
-	OwningCharacter = Cast<AWarriorBaseCharacter>(TryGetPawnOwner());
+	OwningCharacter = Cast<ATPSCombatBaseCharacter>(TryGetPawnOwner());
 
 	if (OwningCharacter)
 	{

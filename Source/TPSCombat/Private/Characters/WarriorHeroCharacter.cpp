@@ -9,6 +9,9 @@
 #include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "Components/Input/TPSCombatInputComponent.h"
 #include "TPSCombatGameplayTags.h"
+#include "AbilitySystem/TPSCombatAbilitySystemComponent.h"
+#include "AbilitySystem/TPSCombatAttributeSet.h"
+#include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
 
 #include "WarriorDebugHelper.h"
 
@@ -34,6 +37,19 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
 	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.0f;
+}
+
+void AWarriorHeroCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (!CharacterStartUpData.IsNull())
+	{
+		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
+		{
+			LoadedData->GiveToAbilitySystemComponent(TPSCombatAbilitySystemComponent);
+		}
+	}
 }
 
 void AWarriorHeroCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)

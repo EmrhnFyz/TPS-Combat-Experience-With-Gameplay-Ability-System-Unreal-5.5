@@ -7,7 +7,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "TPSCombatCharacterAnimInstance.generated.h"
 
-class AWarriorBaseCharacter;
+class ATPSCombatBaseCharacter;
 class UCharacterMovementComponent;
 /**
  * 
@@ -23,7 +23,7 @@ public:
 
 protected:
 	UPROPERTY()
-	AWarriorBaseCharacter* OwningCharacter;
+	ATPSCombatBaseCharacter* OwningCharacter;
 
 	UPROPERTY()
 	UCharacterMovementComponent* OwningMovementComponent;

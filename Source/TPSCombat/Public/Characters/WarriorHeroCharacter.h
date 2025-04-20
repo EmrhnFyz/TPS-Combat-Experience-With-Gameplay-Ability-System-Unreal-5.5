@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Characters/WarriorBaseCharacter.h"
+#include "Characters/TPSCombatBaseCharacter.h"
 #include "WarriorHeroCharacter.generated.h"
 
 class USpringArmComponent;
@@ -15,7 +15,7 @@ struct FInputActionValue;
  * 
  */
 UCLASS()
-class TPSCOMBAT_API AWarriorHeroCharacter : public AWarriorBaseCharacter
+class TPSCOMBAT_API AWarriorHeroCharacter : public ATPSCombatBaseCharacter
 {
 	GENERATED_BODY()
 
@@ -23,6 +23,8 @@ public:
 	AWarriorHeroCharacter();
 
 protected:
+	virtual void PossessedBy(AController* NewController) override;
+
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
 
