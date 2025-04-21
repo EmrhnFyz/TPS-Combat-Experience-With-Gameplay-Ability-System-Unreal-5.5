@@ -6,6 +6,7 @@
 #include "AnimInstances/TPSCombatBaseAnimInstance.h"
 #include "WarriorHeroLinkedAnimLayer.generated.h"
 
+class UWarriorHeroAnimInstance;
 /**
  * 
  */
@@ -13,5 +14,8 @@ UCLASS()
 class TPSCOMBAT_API UWarriorHeroLinkedAnimLayer : public UTPSCombatBaseAnimInstance
 {
 	GENERATED_BODY()
-	
+
+public:
+	UFUNCTION(BlueprintPure, meta=(NotBlueprintThreadSafe))
+	UWarriorHeroAnimInstance* GetHeroAnimInstance() const;
 };

@@ -67,17 +67,10 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 	Subsystem->AddMappingContext(InputConfigDataAsset->DefaultMappingContext, 0);
 
 	UTPSCombatInputComponent* TPSCombatInputComponent = CastChecked<UTPSCombatInputComponent>(PlayerInputComponent);
-	TPSCombatInputComponent->BindNativeInputAction(InputConfigDataAsset,
-	                                               TPSCombatGameplayTags::InputTag_Move,
-	                                               ETriggerEvent::Triggered,
-	                                               this,
-	                                               &ThisClass::Input_Move);
+	TPSCombatInputComponent->BindNativeInputAction(InputConfigDataAsset, TPSCombatGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
+	TPSCombatInputComponent->BindNativeInputAction(InputConfigDataAsset, TPSCombatGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
 
-	TPSCombatInputComponent->BindNativeInputAction(InputConfigDataAsset,
-	                                               TPSCombatGameplayTags::InputTag_Look,
-	                                               ETriggerEvent::Triggered,
-	                                               this,
-	                                               &ThisClass::Input_Look);
+	TPSCombatInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ThisClass::Input_AbilityInputReleased);
 }
 
 void AWarriorHeroCharacter::BeginPlay()
@@ -119,4 +112,14 @@ void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue
 	{
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void AWarriorHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
+{
+	TPSCombatAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+}
+
+void AWarriorHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
+{
+	TPSCombatAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 }
