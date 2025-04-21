@@ -4,24 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
-#include "GameplayTagContainer.h"
 #include "DataAsset_HeroStartUpData.generated.h"
 
-USTRUCT(BlueprintType)
-struct FWarriorHeroAbilitySet
-{
-	GENERATED_BODY()
-	;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(Categories="InputTag"))
-	FGameplayTag InputTag;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf<UTPSCombatGameplayAbility> AbilityToGrant;
-
-	bool IsValid() const;
-};
-
+struct FWarriorHeroAbilitySet;
 /**
  * 
  */

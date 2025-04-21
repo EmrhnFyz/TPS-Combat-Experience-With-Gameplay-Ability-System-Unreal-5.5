@@ -2,3 +2,10 @@
 
 
 #include "TpsCombatTypes/TPSCombatStructTypes.h"
+
+#include "AbilitySystem/Abilities/TPSCombatGameplayAbility.h"
+
+bool FWarriorHeroAbilitySet::IsValid() const
+{
+	return InputTag.IsValid() && AbilityToGrant;
+}

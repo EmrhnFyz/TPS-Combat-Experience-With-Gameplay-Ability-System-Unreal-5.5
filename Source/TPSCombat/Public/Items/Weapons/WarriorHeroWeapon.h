@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Items/Weapons/TPSCombatWeaponBase.h"
 #include "TpsCombatTypes/TPSCombatStructTypes.h"
-
+#include "GameplayAbilitySpec.h"
 #include "WarriorHeroWeapon.generated.h"
 
 /**
@@ -19,4 +19,11 @@ class TPSCOMBAT_API AWarriorHeroWeapon : public ATPSCombatWeaponBase
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="WeaponData")
 	FTPSCombatHeroWeaponData HeroWeaponData;
+	UFUNCTION(BlueprintCallable)
+	void AssignGrantedAbilitySpecHandles(const TArray<FGameplayAbilitySpecHandle>& InGrantedAbilitySpecHandles);
+	UFUNCTION(BlueprintCallable)
+	TArray<FGameplayAbilitySpecHandle> GetGrantedAbilitySpecHandles() const;
+
+private:
+	TArray<FGameplayAbilitySpecHandle> GrantedAbilitySpecHandles;
 };

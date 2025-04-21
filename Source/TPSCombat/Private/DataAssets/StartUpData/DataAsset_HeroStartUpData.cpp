@@ -2,13 +2,9 @@
 
 
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
-#include "AbilitySystem/Abilities/TPSCombatGameplayAbility.h"
+#include "TpsCombatTypes/TPSCombatStructTypes.h"
 #include  "AbilitySystem/TPSCombatAbilitySystemComponent.h"
-
-bool FWarriorHeroAbilitySet::IsValid() const
-{
-	return InputTag.IsValid() && AbilityToGrant;
-}
+#include "AbilitySystem/Abilities/TPSCombatGameplayAbility.h"
 
 void UDataAsset_HeroStartUpData::GiveToAbilitySystemComponent(UTPSCombatAbilitySystemComponent* InASCToGive, int32 ApplyLevel)
 {

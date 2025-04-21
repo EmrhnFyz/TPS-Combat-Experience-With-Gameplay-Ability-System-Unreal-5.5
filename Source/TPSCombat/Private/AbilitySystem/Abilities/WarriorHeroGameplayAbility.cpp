@@ -12,17 +12,18 @@ AWarriorHeroCharacter* UWarriorHeroGameplayAbility::GetHeroCharacterFromActorInf
 	{
 		CachedWarriorHeroCharacter = Cast<AWarriorHeroCharacter>(CurrentActorInfo->AvatarActor);
 	}
+
 	return CachedWarriorHeroCharacter.IsValid() ? CachedWarriorHeroCharacter.Get() : nullptr;
 }
 
 AWarriorHeroController* UWarriorHeroGameplayAbility::GetHeroControllerFromActorInfo()
 {
-	if (CachedWarriorHeroController.IsValid())
+	if (!CachedWarriorHeroController.IsValid())
 	{
-		CachedWarriorHeroController = Cast<AWarriorHeroController>(CurrentActorInfo->PlayerController);
+		CachedWarriorHeroController = Cast<AWarriorHeroController>(GetOwningActorFromActorInfo()->GetInstigatorController());
 	}
 
-	return CachedWarriorHeroController.IsValid() ? CachedWarriorHeroController.Get() : nullptr;
+	return CachedWarriorHeroController.IsValid() ? CachedWarriorHeroController.Get() : Cast<AWarriorHeroController>(GetOwningActorFromActorInfo()->GetInstigatorController());
 }
 
 UHeroCombatComponent* UWarriorHeroGameplayAbility::GetHeroCombatComponentFromActorInfo()

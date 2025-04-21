@@ -2,6 +2,7 @@
 
 
 #include "AbilitySystem/TPSCombatAbilitySystemComponent.h"
+#include "AbilitySystem/Abilities/TPSCombatGameplayAbility.h"
 
 void UTPSCombatAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InInputTag)
 {
@@ -23,4 +24,45 @@ void UTPSCombatAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag&
 
 void UTPSCombatAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag& InInputTag)
 {
+}
+
+void UTPSCombatAbilitySystemComponent::GrantHeroWeaponAbilities(const TArray<FWarriorHeroAbilitySet>& InWeaponDefaultAbilities, int32 ApplyLevel, TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandles)
+{
+	if (InWeaponDefaultAbilities.IsEmpty())
+	{
+		return;
+	}
+
+	for (const FWarriorHeroAbilitySet& AbilitySet : InWeaponDefaultAbilities)
+	{
+		if (!AbilitySet.IsValid())
+		{
+			continue;
+		}
+
+		FGameplayAbilitySpec AbilitySpec(AbilitySet.AbilityToGrant);
+		AbilitySpec.SourceObject = GetAvatarActor();
+		AbilitySpec.Level = ApplyLevel;
+		AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilitySet.InputTag);
+		OutGrantedAbilitySpecHandles.AddUnique(GiveAbility(AbilitySpec));
+	}
+}
+
+void UTPSCombatAbilitySystemComponent::RemoveGrantedAbilitySpecHandles(UPARAM(ref)
+	TArray<FGameplayAbilitySpecHandle>& InSpecHandlesToRemove)
+{
+	if (InSpecHandlesToRemove.IsEmpty())
+	{
+		return;
+	}
+
+	for (FGameplayAbilitySpecHandle& SpecHandle : InSpecHandlesToRemove)
+	{
+		if (SpecHandle.IsValid())
+		{
+			ClearAbility(SpecHandle);
+		}
+	}
+
+	InSpecHandlesToRemove.Empty();
 }
