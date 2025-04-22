@@ -23,6 +23,11 @@ UAbilitySystemComponent* ATPSCombatBaseCharacter::GetAbilitySystemComponent() co
 	return GetTPSCombatAbilitySystemComponent();
 }
 
+UPawnCombatComponent* ATPSCombatBaseCharacter::GetPawnCombatComponent() const
+{
+	return nullptr;
+}
+
 void ATPSCombatBaseCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);

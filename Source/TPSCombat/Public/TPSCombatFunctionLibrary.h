@@ -4,16 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "TpsCombatTypes/TPSCombatEnumTypes.h"
 #include "TPSCombatFunctionLibrary.generated.h"
 
+class UPawnCombatComponent;
 class UTPSCombatAbilitySystemComponent;
 
-UENUM()
-enum class ETPSCombatConfirmType : uint8
-{
-	Yes,
-	No,
-};
 
 /**
  * 
@@ -36,4 +32,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="TPSCombat|FunctionLibrary", meta=(DisplayName="Does Actor Have Tag", ExpandEnumAsExecs="OutConfirmType"))
 	static void BP_DoesActorHaveTag(AActor* InActor, FGameplayTag TagToCheck, ETPSCombatConfirmType& OutConfirmType);
+
+	static UPawnCombatComponent* NativeGetPawnCombatComponentFromActor(AActor* InActor);
+
+	UFUNCTION(BlueprintCallable, Category="TPSCombat|FunctionLibrary", meta=(DisplayName="Get Pawn Combat Component From Actor", ExpandEnumAsExecs="OutValidType"))
+	static UPawnCombatComponent* BP_GetPawnCombatComponentFromActor(AActor* InActor, ETPSCombatValidType& OutValidType);
 };

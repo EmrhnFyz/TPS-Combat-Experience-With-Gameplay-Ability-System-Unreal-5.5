@@ -21,6 +21,8 @@ public:
 protected:
 	virtual void PossessedBy(AController* NewController) override;
 
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat")
 	UEnemyCombatComponent* EnemyCombatComponent;
 

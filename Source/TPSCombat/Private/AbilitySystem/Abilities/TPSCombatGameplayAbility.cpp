@@ -2,9 +2,9 @@
 
 
 #include "AbilitySystem/Abilities/TPSCombatGameplayAbility.h"
-#include  "AbilitySystem/TPSCombatAbilitySystemComponent.h"
+#include "AbilitySystem/TPSCombatAbilitySystemComponent.h"
 #include "Components/Combat/PawnCombatComponent.h"
-
+#include "AbilitySystemBlueprintLibrary.h"
 
 void UTPSCombatGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -39,4 +39,22 @@ UPawnCombatComponent* UTPSCombatGameplayAbility::GetPawnCombatComponentFromActor
 UTPSCombatAbilitySystemComponent* UTPSCombatGameplayAbility::GetTPSCombatAbilitySystemComponentFromActorInfo() const
 {
 	return Cast<UTPSCombatAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
+}
+
+FActiveGameplayEffectHandle UTPSCombatGameplayAbility::NativeApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle)
+{
+	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+
+	check(TargetASC && InSpecHandle.IsValid());
+
+	return GetTPSCombatAbilitySystemComponentFromActorInfo()->ApplyGameplayEffectSpecToTarget(*InSpecHandle.Data, TargetASC);
+}
+
+FActiveGameplayEffectHandle UTPSCombatGameplayAbility::BP_ApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle, ETPSCombatSuccessType& OutSuccessType)
+{
+	FActiveGameplayEffectHandle ActiveGameplayEffectHandle = NativeApplyEffectSpecHandleToTarget(TargetActor, InSpecHandle);
+
+	OutSuccessType = ActiveGameplayEffectHandle.WasSuccessfullyApplied() ? ETPSCombatSuccessType::Successful : ETPSCombatSuccessType::Failed;
+
+	return ActiveGameplayEffectHandle;
 }

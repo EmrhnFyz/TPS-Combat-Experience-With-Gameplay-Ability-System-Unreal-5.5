@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
 #include  "AbilitySystem/TPSCombatAbilitySystemComponent.h"
+#include "TpsCombatTypes/TPSCombatEnumTypes.h"
 #include "TPSCombatGameplayAbility.generated.h"
 
 class UPawnCombatComponent;
@@ -37,4 +38,9 @@ protected:
 
 	UFUNCTION(BlueprintPure, Category="TPSCombat|Ability")
 	UTPSCombatAbilitySystemComponent* GetTPSCombatAbilitySystemComponentFromActorInfo() const;
+
+	FActiveGameplayEffectHandle NativeApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle);
+
+	UFUNCTION(BlueprintCallable, Category="TPSCombat|Ability", meta=(DisplayName="Apply Effect Spec Handle To Target Actor", ExpandEnumAsExecs="OutSuccessType"))
+	FActiveGameplayEffectHandle BP_ApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle, ETPSCombatSuccessType& OutSuccessType);
 };

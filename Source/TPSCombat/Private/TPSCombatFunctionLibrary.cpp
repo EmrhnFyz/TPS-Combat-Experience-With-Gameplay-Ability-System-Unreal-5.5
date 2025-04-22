@@ -4,6 +4,8 @@
 #include "TPSCombatFunctionLibrary.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystem/TPSCombatAbilitySystemComponent.h"
+#include "Interfaces/PawnCombatInterface.h"
+#include "Components/Combat/PawnCombatComponent.h"
 
 UTPSCombatAbilitySystemComponent* UTPSCombatFunctionLibrary::NativeGetTPSCombatASCFromActor(AActor* InActor)
 {
@@ -39,5 +41,25 @@ bool UTPSCombatFunctionLibrary::NativeDoesActorHaveTag(AActor* InActor, FGamepla
 
 void UTPSCombatFunctionLibrary::BP_DoesActorHaveTag(AActor* InActor, FGameplayTag TagToCheck, ETPSCombatConfirmType& OutConfirmType)
 {
-    OutConfirmType = NativeDoesActorHaveTag(InActor,TagToCheck)? ETPSCombatConfirmType::Yes : ETPSCombatConfirmType::No;
+	OutConfirmType = NativeDoesActorHaveTag(InActor, TagToCheck) ? ETPSCombatConfirmType::Yes : ETPSCombatConfirmType::No;
+}
+
+UPawnCombatComponent* UTPSCombatFunctionLibrary::NativeGetPawnCombatComponentFromActor(AActor* InActor)
+{
+	check(InActor);
+
+	if (IPawnCombatInterface* PawnCombatInterface = Cast<IPawnCombatInterface>(InActor))
+	{
+		return PawnCombatInterface->GetPawnCombatComponent();
+	}
+
+	return nullptr;
+}
+
+UPawnCombatComponent* UTPSCombatFunctionLibrary::BP_GetPawnCombatComponentFromActor(AActor* InActor, ETPSCombatValidType& OutValidType)
+{
+	UPawnCombatComponent* CombatComponent = NativeGetPawnCombatComponentFromActor(InActor);
+	OutValidType = CombatComponent ? ETPSCombatValidType::Valid : ETPSCombatValidType::Invalid;
+
+	return CombatComponent;
 }

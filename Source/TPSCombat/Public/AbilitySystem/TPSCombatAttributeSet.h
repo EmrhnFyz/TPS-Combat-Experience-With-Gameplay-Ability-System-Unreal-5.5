@@ -44,7 +44,10 @@ public:
 	FGameplayAttributeData AttackPower;
 	ATTRIBUTE_ACCESSORS(UTPSCombatAttributeSet, AttackPower);
 
-	UPROPERTY(BlueprintReadOnly, Category="Defense")
+	UPROPERTY(BlueprintReadOnly, Category="Damage")
+	FGameplayAttributeData DamageTaken;
+
+	UPROPERTY(BlueprintReadOnly, Category="Damage")
 	FGameplayAttributeData DefensePower;
 	ATTRIBUTE_ACCESSORS(UTPSCombatAttributeSet, DefensePower);
 };

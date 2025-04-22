@@ -11,7 +11,6 @@
 #include "TPSCombatGameplayTags.h"
 #include "Components/Combat/HeroCombatComponent.h"
 #include "AbilitySystem/TPSCombatAbilitySystemComponent.h"
-#include "AbilitySystem/TPSCombatAttributeSet.h"
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
 
 #include "TPSCombatDebugHelper.h"
@@ -53,6 +52,11 @@ void ATPSCombatHeroCharacter::PossessedBy(AController* NewController)
 			LoadedData->GiveToAbilitySystemComponent(TPSCombatAbilitySystemComponent);
 		}
 	}
+}
+
+UPawnCombatComponent* ATPSCombatHeroCharacter::GetPawnCombatComponent() const
+{
+	return HeroCombatComponent;
 }
 
 void ATPSCombatHeroCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "Interfaces/PawnCombatInterface.h"
 #include "TPSCombatBaseCharacter.generated.h"
 
 class UTPSCombatAbilitySystemComponent;
@@ -12,7 +13,7 @@ class UTPSCombatAttributeSet;
 class UDataAsset_StartUpDataBase;
 
 UCLASS()
-class TPSCOMBAT_API ATPSCombatBaseCharacter : public ACharacter, public IAbilitySystemInterface
+class TPSCOMBAT_API ATPSCombatBaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface
 {
 	GENERATED_BODY()
 
@@ -21,6 +22,8 @@ public:
 	ATPSCombatBaseCharacter();
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 
 protected:
 	virtual void PossessedBy(AController* NewController) override;

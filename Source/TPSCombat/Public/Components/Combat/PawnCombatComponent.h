@@ -7,6 +7,13 @@
 #include "Components/PawnExtensionComponentBase.h"
 #include "PawnCombatComponent.generated.h"
 
+UENUM(BlueprintType)
+enum class EToggleDamageType : uint8
+{
+	CurrentEquippedWeapon,
+	LeftHand,
+	RightHand,
+};
 
 class ATPSCombatWeaponBase;
 /**
@@ -17,8 +24,6 @@ class TPSCOMBAT_API UPawnCombatComponent : public UPawnExtensionComponentBase
 {
 	GENERATED_BODY()
 
-	TMap<FGameplayTag, ATPSCombatWeaponBase*> CharacterCarriedWeaponMap;
-
 public:
 	UFUNCTION(BlueprintCallable, Category="TPSCombat|Combat")
 	void RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegister, ATPSCombatWeaponBase* InWeaponToRegister, bool bRegisterAsEquippedWeapon = false);
@@ -27,6 +32,18 @@ public:
 	UFUNCTION(BlueprintCallable, Category="TPSCombat|Combat")
 	ATPSCombatWeaponBase* GetCharacterCurrentEquippedWeapon() const;
 
+	UFUNCTION(BlueprintCallable, Category="TPSCombat|Combat")
+	void ToggleWeaponCollision(bool bShouldEnableCollision, EToggleDamageType ToggleDamageType = EToggleDamageType::CurrentEquippedWeapon);
+
+	virtual void OnHitTargetActor(AActor* HitActor);
+	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor);
+
 	UPROPERTY(BlueprintReadWrite, Category="TPSCombat|Combat")
 	FGameplayTag CurrentEquippedWeaponTag;
+
+protected:
+	TArray<AActor*> OverlappedActors;
+
+private:
+	TMap<FGameplayTag, ATPSCombatWeaponBase*> CharacterCarriedWeaponMap;
 };

@@ -37,6 +37,8 @@ private:
 protected:
 	virtual void PossessedBy(AController* NewController) override;
 
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
 

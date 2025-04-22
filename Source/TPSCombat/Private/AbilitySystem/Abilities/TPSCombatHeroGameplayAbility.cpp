@@ -4,7 +4,8 @@
 #include "AbilitySystem/Abilities/TPSCombatHeroGameplayAbility.h"
 #include "Characters/TPSCombatHeroCharacter.h"
 #include "Controllers/TPSCombatHeroController.h"
-#include "Components/Combat/HeroCombatComponent.h"
+#include "AbilitySystem/TPSCombatAbilitySystemComponent.h"
+#include "TPSCombatGameplayTags.h"
 
 ATPSCombatHeroCharacter* UTPSCombatHeroGameplayAbility::GetHeroCharacterFromActorInfo()
 {
@@ -29,4 +30,25 @@ ATPSCombatHeroController* UTPSCombatHeroGameplayAbility::GetHeroControllerFromAc
 UHeroCombatComponent* UTPSCombatHeroGameplayAbility::GetHeroCombatComponentFromActorInfo()
 {
 	return GetHeroCharacterFromActorInfo()->GetHeroCombatComponent();
+}
+
+FGameplayEffectSpecHandle UTPSCombatHeroGameplayAbility::MakeHeroDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InUsedComboCount)
+{
+	check(EffectClass);
+
+	FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponentFromActorInfo()->MakeEffectContext();
+	ContextHandle.SetAbility(this);
+	ContextHandle.AddSourceObject(GetAvatarActorFromActorInfo());
+	ContextHandle.AddInstigator(GetAvatarActorFromActorInfo(), GetAvatarActorFromActorInfo());
+
+	FGameplayEffectSpecHandle EffectSpecHandle = GetAbilitySystemComponentFromActorInfo()->MakeOutgoingSpec(EffectClass, GetAbilityLevel(), ContextHandle);
+
+	EffectSpecHandle.Data->SetSetByCallerMagnitude(TPSCombatGameplayTags::Shared_SetByCaller_BaseDamage, InWeaponBaseDamage);
+
+	if (InCurrentAttackTypeTag.IsValid())
+	{
+		EffectSpecHandle.Data->SetSetByCallerMagnitude(InCurrentAttackTypeTag, InUsedComboCount);
+	}
+
+	return EffectSpecHandle;
 }

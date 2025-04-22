@@ -32,6 +32,11 @@ void ATPSCombatEnemyCharacter::PossessedBy(AController* NewController)
 	InitEnemyStartUpData();
 }
 
+UPawnCombatComponent* ATPSCombatEnemyCharacter::GetPawnCombatComponent() const
+{
+	return EnemyCombatComponent;
+}
+
 void ATPSCombatEnemyCharacter::InitEnemyStartUpData()
 {
 	if (CharacterStartUpData.IsNull())
@@ -48,8 +53,6 @@ void ATPSCombatEnemyCharacter::InitEnemyStartUpData()
 					if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.Get())
 					{
 						LoadedData->GiveToAbilitySystemComponent(TPSCombatAbilitySystemComponent);
-
-						Debug::Print(TEXT("Enemy Start Up Data Loaded"), FColor::Green);
 					}
 				}
 			)

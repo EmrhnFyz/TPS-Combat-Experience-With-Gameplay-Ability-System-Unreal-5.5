@@ -18,4 +18,10 @@ class TPSCOMBAT_API UHeroCombatComponent : public UPawnCombatComponent
 public:
 	UFUNCTION(BlueprintCallable, Category="TPSCombat|Combat")
 	ATPSCombatHeroWeapon* GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
+	UFUNCTION(BlueprintCallable, Category="TPSCombat|Combat")
+	ATPSCombatHeroWeapon* GetHeroCurrentEquippedWeapon() const;
+	UFUNCTION(BlueprintCallable, Category="TPSCombat|Combat")
+	float GetHeroCurrentEquppedWeaponDamageAtLevel(float InLevel) const;
+	virtual void OnHitTargetActor(AActor* HitActor) override;
+	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor) override;
 };
