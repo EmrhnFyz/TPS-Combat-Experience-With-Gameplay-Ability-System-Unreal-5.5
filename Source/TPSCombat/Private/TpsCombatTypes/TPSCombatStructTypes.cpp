@@ -5,7 +5,7 @@
 
 #include "AbilitySystem/Abilities/TPSCombatGameplayAbility.h"
 
-bool FWarriorHeroAbilitySet::IsValid() const
+bool FHeroAbilitySet::IsValid() const
 {
 	return InputTag.IsValid() && AbilityToGrant;
 }

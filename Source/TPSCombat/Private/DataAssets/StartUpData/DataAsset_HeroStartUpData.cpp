@@ -10,7 +10,7 @@ void UDataAsset_HeroStartUpData::GiveToAbilitySystemComponent(UTPSCombatAbilityS
 {
 	Super::GiveToAbilitySystemComponent(InASCToGive, ApplyLevel);
 
-	for (const FWarriorHeroAbilitySet& AbilitySet : HeroStartUpAbilitySets)
+	for (const FHeroAbilitySet& AbilitySet : HeroStartUpAbilitySets)
 	{
 		if (!AbilitySet.IsValid())
 		{

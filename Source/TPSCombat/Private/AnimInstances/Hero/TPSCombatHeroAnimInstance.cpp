@@ -1,21 +1,21 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "AnimInstances/Hero/WarriorHeroAnimInstance.h"
+#include "AnimInstances/Hero/TPSCombatHeroAnimInstance.h"
 
-#include "Characters/WarriorHeroCharacter.h"
+#include "Characters/TPSCombatHeroCharacter.h"
 
-void UWarriorHeroAnimInstance::NativeInitializeAnimation()
+void UTPSCombatHeroAnimInstance::NativeInitializeAnimation()
 {
 	Super::NativeInitializeAnimation();
 
 	if (OwningCharacter)
 	{
-		OwningHeroCharacter = Cast<AWarriorHeroCharacter>(OwningCharacter);
+		OwningHeroCharacter = Cast<ATPSCombatHeroCharacter>(OwningCharacter);
 	}
 }
 
-void UWarriorHeroAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
+void UTPSCombatHeroAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeThreadSafeUpdateAnimation(DeltaSeconds);
 

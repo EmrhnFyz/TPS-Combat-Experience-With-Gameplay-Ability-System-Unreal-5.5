@@ -6,13 +6,13 @@
 #include "Items/Weapons/TPSCombatWeaponBase.h"
 #include "TpsCombatTypes/TPSCombatStructTypes.h"
 #include "GameplayAbilitySpec.h"
-#include "WarriorHeroWeapon.generated.h"
+#include "TPSCombatHeroWeapon.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TPSCOMBAT_API AWarriorHeroWeapon : public ATPSCombatWeaponBase
+class TPSCOMBAT_API ATPSCombatHeroWeapon : public ATPSCombatWeaponBase
 {
 	GENERATED_BODY()
 

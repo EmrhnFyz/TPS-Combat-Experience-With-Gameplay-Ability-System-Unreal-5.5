@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Characters/TPSCombatBaseCharacter.h"
 #include "GameplayTagContainer.h"
-#include "WarriorHeroCharacter.generated.h"
+#include "TPSCombatHeroCharacter.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -16,12 +16,12 @@ struct FInputActionValue;
  * 
  */
 UCLASS()
-class TPSCOMBAT_API AWarriorHeroCharacter : public ATPSCombatBaseCharacter
+class TPSCOMBAT_API ATPSCombatHeroCharacter : public ATPSCombatBaseCharacter
 {
 	GENERATED_BODY()
 
 public:
-	AWarriorHeroCharacter();
+	ATPSCombatHeroCharacter();
 
 private:
 #pragma region  Components

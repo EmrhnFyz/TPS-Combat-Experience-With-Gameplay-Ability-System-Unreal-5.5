@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
-#include "DataAsset_HeroStartUpData.generated.h"
+#include "DataAsset_EnemyStartUpData.generated.h"
 
 
-struct FHeroAbilitySet;
+class UTPSCombatEnemyGameplayAbility;
 /**
  * 
  */
 UCLASS()
-class TPSCOMBAT_API UDataAsset_HeroStartUpData : public UDataAsset_StartUpDataBase
+class TPSCOMBAT_API UDataAsset_EnemyStartUpData : public UDataAsset_StartUpDataBase
 {
 	GENERATED_BODY()
 
@@ -21,5 +21,5 @@ public:
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category="StartUpData", meta=(TitleProperty="InputTag"))
-	TArray<FHeroAbilitySet> HeroStartUpAbilitySets;
+	TArray<TSubclassOf<UTPSCombatEnemyGameplayAbility>> EnemyCombatAbilities;
 };

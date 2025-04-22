@@ -6,11 +6,11 @@
 #include "TPSCombatStructTypes.generated.h"
 
 class UInputMappingContext;
-class UWarriorHeroLinkedAnimLayer;
+class UTPSCombatHeroLinkedAnimLayer;
 class UTPSCombatGameplayAbility;
 
 USTRUCT(BlueprintType)
-struct FWarriorHeroAbilitySet
+struct FHeroAbilitySet
 {
 	GENERATED_BODY()
 
@@ -29,11 +29,11 @@ struct FTPSCombatHeroWeaponData
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf<UWarriorHeroLinkedAnimLayer> WeaponAnimLayerToLink;
+	TSubclassOf<UTPSCombatHeroLinkedAnimLayer> WeaponAnimLayerToLink;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UInputMappingContext* InputMappingContext;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty="InputTag"))
-	TArray<FWarriorHeroAbilitySet> DefaultWeaponAbilities;
+	TArray<FHeroAbilitySet> DefaultWeaponAbilities;
 };

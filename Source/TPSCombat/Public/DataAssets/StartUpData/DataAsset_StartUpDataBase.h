@@ -8,6 +8,7 @@
 
 class UTPSCombatGameplayAbility;
 class UTPSCombatAbilitySystemComponent;
+class UGameplayEffect;
 /**
  * 
  */
@@ -25,6 +26,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category="StartUpData")
 	TArray<TSubclassOf<UTPSCombatGameplayAbility>> ReactiveAbilities;
+
+	UPROPERTY(EditDefaultsOnly, Category="StartUpData")
+	TArray<TSubclassOf<UGameplayEffect>> StartUpGameplayEffects;
 
 	void GrantAbilities(const TArray<TSubclassOf<UTPSCombatGameplayAbility>>& InAbilitiesToGive, UTPSCombatAbilitySystemComponent* InASCToGive, int32 ApplyLevel = 1);
 };

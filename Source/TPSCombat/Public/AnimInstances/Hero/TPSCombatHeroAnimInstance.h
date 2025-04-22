@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "AnimInstances/TPSCombatCharacterAnimInstance.h"
-#include "WarriorHeroAnimInstance.generated.h"
+#include "TPSCombatHeroAnimInstance.generated.h"
 
-class AWarriorHeroCharacter;
+class ATPSCombatHeroCharacter;
 
 /**
  * 
  */
 UCLASS()
-class TPSCOMBAT_API UWarriorHeroAnimInstance : public UTPSCombatCharacterAnimInstance
+class TPSCOMBAT_API UTPSCombatHeroAnimInstance : public UTPSCombatCharacterAnimInstance
 {
 	GENERATED_BODY()
 
@@ -22,7 +22,7 @@ public:
 
 protected:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category="AnimData|References")
-	AWarriorHeroCharacter* OwningHeroCharacter;
+	ATPSCombatHeroCharacter* OwningHeroCharacter;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category="AnimData|LocomotionData")
 	bool bShouldEnterRelaxState;

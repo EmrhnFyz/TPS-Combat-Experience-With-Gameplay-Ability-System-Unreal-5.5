@@ -27,4 +27,7 @@ namespace TPSCombatGameplayTags
 	TPSCOMBAT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Unequip_Axe);
 
 	TPSCOMBAT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_JumpToFinisher);
+
+	// Enemy Tags
+	TPSCOMBAT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Weapon);
 }

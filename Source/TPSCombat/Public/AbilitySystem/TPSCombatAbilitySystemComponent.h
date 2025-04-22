@@ -20,7 +20,7 @@ public:
 	void OnAbilityInputReleased(const FGameplayTag& InInputTag);
 
 	UFUNCTION(BlueprintCallable, Category="TPSCombat|Ability", meta=(ApplyLevel="1"))
-	void GrantHeroWeaponAbilities(const TArray<FWarriorHeroAbilitySet>& InWeaponDefaultAbilities, int32 ApplyLevel, TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandles);
+	void GrantHeroWeaponAbilities(const TArray<FHeroAbilitySet>& InWeaponDefaultAbilities, int32 ApplyLevel, TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandles);
 	UFUNCTION(BlueprintCallable, Category="TPSCombat|Ability")
 	void RemoveGrantedAbilitySpecHandles(UPARAM(ref)
 		TArray<FGameplayAbilitySpecHandle>& InSpecHandlesToRemove);

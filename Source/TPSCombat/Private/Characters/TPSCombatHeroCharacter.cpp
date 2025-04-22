@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Characters/WarriorHeroCharacter.h"
+#include "Characters/TPSCombatHeroCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -14,9 +14,9 @@
 #include "AbilitySystem/TPSCombatAttributeSet.h"
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
 
-#include "WarriorDebugHelper.h"
+#include "TPSCombatDebugHelper.h"
 
-AWarriorHeroCharacter::AWarriorHeroCharacter()
+ATPSCombatHeroCharacter::ATPSCombatHeroCharacter()
 {
 	GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
 
@@ -42,7 +42,7 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
 }
 
-void AWarriorHeroCharacter::PossessedBy(AController* NewController)
+void ATPSCombatHeroCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
@@ -55,7 +55,7 @@ void AWarriorHeroCharacter::PossessedBy(AController* NewController)
 	}
 }
 
-void AWarriorHeroCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+void ATPSCombatHeroCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	checkf(InputConfigDataAsset,
 	       TEXT("Input Config data asset is null, please check the input config data asset in the input component!"));
@@ -73,13 +73,13 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 	TPSCombatInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ThisClass::Input_AbilityInputReleased);
 }
 
-void AWarriorHeroCharacter::BeginPlay()
+void ATPSCombatHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	Debug::Print(TEXT("WarriorHeroCharacter BeginPlay"));
 }
 
-void AWarriorHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)
+void ATPSCombatHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)
 {
 	const FVector2D MovementVector = InputActionValue.Get<FVector2D>();
 	const FRotator MovementRotation = FRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
@@ -99,7 +99,7 @@ void AWarriorHeroCharacter::Input_Move(const FInputActionValue& InputActionValue
 	}
 }
 
-void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue)
+void ATPSCombatHeroCharacter::Input_Look(const FInputActionValue& InputActionValue)
 {
 	const FVector2D LookAxisVector = InputActionValue.Get<FVector2D>();
 
@@ -114,12 +114,12 @@ void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue
 	}
 }
 
-void AWarriorHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
+void ATPSCombatHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
 {
 	TPSCombatAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
 }
 
-void AWarriorHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
+void ATPSCombatHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
 {
 	TPSCombatAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 }

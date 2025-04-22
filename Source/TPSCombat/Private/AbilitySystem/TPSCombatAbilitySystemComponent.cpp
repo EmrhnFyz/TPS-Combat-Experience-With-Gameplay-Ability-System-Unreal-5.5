@@ -26,14 +26,14 @@ void UTPSCombatAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag
 {
 }
 
-void UTPSCombatAbilitySystemComponent::GrantHeroWeaponAbilities(const TArray<FWarriorHeroAbilitySet>& InWeaponDefaultAbilities, int32 ApplyLevel, TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandles)
+void UTPSCombatAbilitySystemComponent::GrantHeroWeaponAbilities(const TArray<FHeroAbilitySet>& InWeaponDefaultAbilities, int32 ApplyLevel, TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandles)
 {
 	if (InWeaponDefaultAbilities.IsEmpty())
 	{
 		return;
 	}
 
-	for (const FWarriorHeroAbilitySet& AbilitySet : InWeaponDefaultAbilities)
+	for (const FHeroAbilitySet& AbilitySet : InWeaponDefaultAbilities)
 	{
 		if (!AbilitySet.IsValid())
 		{

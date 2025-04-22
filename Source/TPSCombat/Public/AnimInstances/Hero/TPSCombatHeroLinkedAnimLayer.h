@@ -4,18 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "AnimInstances/TPSCombatBaseAnimInstance.h"
-#include "WarriorHeroLinkedAnimLayer.generated.h"
+#include "TPSCombatHeroLinkedAnimLayer.generated.h"
 
-class UWarriorHeroAnimInstance;
+class UTPSCombatHeroAnimInstance;
 /**
  * 
  */
 UCLASS()
-class TPSCOMBAT_API UWarriorHeroLinkedAnimLayer : public UTPSCombatBaseAnimInstance
+class TPSCOMBAT_API UTPSCombatHeroLinkedAnimLayer : public UTPSCombatBaseAnimInstance
 {
 	GENERATED_BODY()
 
 public:
 	UFUNCTION(BlueprintPure, meta=(NotBlueprintThreadSafe))
-	UWarriorHeroAnimInstance* GetHeroAnimInstance() const;
+	UTPSCombatHeroAnimInstance* GetHeroAnimInstance() const;
 };

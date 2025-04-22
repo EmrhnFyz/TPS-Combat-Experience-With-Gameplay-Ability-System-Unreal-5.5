@@ -4,14 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "WarriorHeroController.generated.h"
+#include "TPSCombatHeroController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TPSCOMBAT_API AWarriorHeroController : public APlayerController
+class TPSCOMBAT_API ATPSCombatHeroController : public APlayerController
 {
 	GENERATED_BODY()
-	
 };

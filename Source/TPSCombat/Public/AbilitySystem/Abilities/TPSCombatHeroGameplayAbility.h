@@ -4,31 +4,31 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystem/Abilities/TPSCombatGameplayAbility.h"
-#include "WarriorHeroGameplayAbility.generated.h"
+#include "TPSCombatHeroGameplayAbility.generated.h"
 
-class AWarriorHeroCharacter;
-class AWarriorHeroController;
+class ATPSCombatHeroCharacter;
+class ATPSCombatHeroController;
 class UHeroCombatComponent;
 
 /**
  * 
  */
 UCLASS()
-class TPSCOMBAT_API UWarriorHeroGameplayAbility : public UTPSCombatGameplayAbility
+class TPSCOMBAT_API UTPSCombatHeroGameplayAbility : public UTPSCombatGameplayAbility
 {
 	GENERATED_BODY()
 
 public:
 	UFUNCTION(BlueprintPure, Category="TPSCombat|Ability")
-	AWarriorHeroCharacter* GetHeroCharacterFromActorInfo();
+	ATPSCombatHeroCharacter* GetHeroCharacterFromActorInfo();
 
 	UFUNCTION(BlueprintPure, Category="TPSCombat|Ability")
-	AWarriorHeroController* GetHeroControllerFromActorInfo();
+	ATPSCombatHeroController* GetHeroControllerFromActorInfo();
 
 	UFUNCTION(BlueprintPure, Category="TPSCombat|Ability")
 	UHeroCombatComponent* GetHeroCombatComponentFromActorInfo();
 
 private:
-	TWeakObjectPtr<AWarriorHeroCharacter> CachedWarriorHeroCharacter;
-	TWeakObjectPtr<AWarriorHeroController> CachedWarriorHeroController;
+	TWeakObjectPtr<ATPSCombatHeroCharacter> CachedHeroCharacter;
+	TWeakObjectPtr<ATPSCombatHeroController> CachedWarriorHeroController;
 };

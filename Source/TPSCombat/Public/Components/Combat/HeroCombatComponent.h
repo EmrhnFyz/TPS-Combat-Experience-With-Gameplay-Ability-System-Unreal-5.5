@@ -6,7 +6,7 @@
 #include "Components/Combat/PawnCombatComponent.h"
 #include "HeroCombatComponent.generated.h"
 
-class AWarriorHeroWeapon;
+class ATPSCombatHeroWeapon;
 /**
  * 
  */
@@ -17,5 +17,5 @@ class TPSCOMBAT_API UHeroCombatComponent : public UPawnCombatComponent
 
 public:
 	UFUNCTION(BlueprintCallable, Category="TPSCombat|Combat")
-	AWarriorHeroWeapon* GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
+	ATPSCombatHeroWeapon* GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
 };

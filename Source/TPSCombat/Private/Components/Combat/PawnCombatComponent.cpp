@@ -4,7 +4,7 @@
 #include "Components/Combat/PawnCombatComponent.h"
 
 
-#include "WarriorDebugHelper.h"
+#include "TPSCombatDebugHelper.h"
 #include "Items/Weapons/TPSCombatWeaponBase.h"
 
 void UPawnCombatComponent::RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegister, ATPSCombatWeaponBase* InWeaponToRegister, bool bRegisterAsEquippedWeapon)
