@@ -3,7 +3,8 @@
 
 #include "AbilitySystem/TPSCombatAttributeSet.h"
 #include "GameplayEffectExtension.h"
-
+#include "TPSCombatFunctionLibrary.h"
+#include "TPSCombatGameplayTags.h"
 #include  "TPSCombatDebugHelper.h"
 
 UTPSCombatAttributeSet::UTPSCombatAttributeSet()
@@ -43,10 +44,9 @@ void UTPSCombatAttributeSet::PostGameplayEffectExecute(const struct FGameplayEff
 
 		// TODO: Notify UI
 
-		// TODO: Handle Character Death
-
 		if (NewCurrentHealth <= 0.f)
 		{
+			UTPSCombatFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), TPSCombatGameplayTags::Shared_Status_Death);
 		}
 	}
 }
