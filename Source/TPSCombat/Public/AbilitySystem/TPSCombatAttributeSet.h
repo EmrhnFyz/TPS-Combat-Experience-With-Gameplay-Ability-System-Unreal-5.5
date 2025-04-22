@@ -23,6 +23,7 @@ class TPSCOMBAT_API UTPSCombatAttributeSet : public UAttributeSet
 
 public:
 	UTPSCombatAttributeSet();
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 
 	UPROPERTY(BlueprintReadOnly, Category="Health")
 	FGameplayAttributeData CurrentHealth;
@@ -46,6 +47,7 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category="Damage")
 	FGameplayAttributeData DamageTaken;
+	ATTRIBUTE_ACCESSORS(UTPSCombatAttributeSet, DamageTaken);
 
 	UPROPERTY(BlueprintReadOnly, Category="Damage")
 	FGameplayAttributeData DefensePower;
