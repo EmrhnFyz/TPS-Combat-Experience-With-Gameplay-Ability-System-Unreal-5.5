@@ -6,6 +6,9 @@
 #include "TPSCombatFunctionLibrary.h"
 #include "TPSCombatGameplayTags.h"
 #include  "TPSCombatDebugHelper.h"
+#include "Components/UI/HeroUIComponent.h"
+#include "Components/UI/PawnUIComponent.h"
+#include "Interfaces/PawnUIInterface.h"
 
 UTPSCombatAttributeSet::UTPSCombatAttributeSet()
 {
@@ -19,11 +22,23 @@ UTPSCombatAttributeSet::UTPSCombatAttributeSet()
 
 void UTPSCombatAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
 {
+	if (!CachedPawnUIInterface.IsValid())
+	{
+		CachedPawnUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());
+	}
+
+	checkf(CachedPawnUIInterface.IsValid(), TEXT("%s didnt implement PawnUIInterface"), *Data.Target.GetAvatarActor()->GetActorLabel());
+
+	UPawnUIComponent* PawnUIComponent = CachedPawnUIInterface->GetPawnUIComponent();
+	checkf(PawnUIComponent, TEXT("PawnUIComponent is null, please check if the PawnUIComponent is assigned to the character: %s"), *Data.Target.GetAvatarActor()->GetActorLabel());
+
 	if (Data.EvaluatedData.Attribute == GetCurrentHealthAttribute())
 	{
 		const float NewCurrentHealth = FMath::Clamp(GetCurrentHealth(), 0.f, GetMaxHealth());
 
 		SetCurrentHealth(NewCurrentHealth);
+
+		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());
 	}
 
 	if (Data.EvaluatedData.Attribute == GetCurrentRageAttribute())
@@ -31,6 +46,10 @@ void UTPSCombatAttributeSet::PostGameplayEffectExecute(const struct FGameplayEff
 		const float NewCurrentRage = FMath::Clamp(GetCurrentRage(), 0.f, GetMaxRage());
 
 		SetCurrentRage(NewCurrentRage);
+		if (UHeroUIComponent* HeroUIComponent = CachedPawnUIInterface->GetHeroUIComponent())
+		{
+			HeroUIComponent->OnCurrentRageChanged.Broadcast(GetCurrentRage() / GetMaxRage());
+		}
 	}
 	if (Data.EvaluatedData.Attribute == GetDamageTakenAttribute())
 	{
@@ -42,7 +61,7 @@ void UTPSCombatAttributeSet::PostGameplayEffectExecute(const struct FGameplayEff
 		Debug::Print(Msg);
 		SetCurrentHealth(NewCurrentHealth);
 
-		// TODO: Notify UI
+		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());
 
 		if (NewCurrentHealth <= 0.f)
 		{

@@ -11,6 +11,7 @@ class USpringArmComponent;
 class UCameraComponent;
 class UDataAsset_InputConfig;
 class UHeroCombatComponent;
+class UHeroUIComponent;
 struct FInputActionValue;
 /**
  * 
@@ -22,6 +23,10 @@ class TPSCOMBAT_API ATPSCombatHeroCharacter : public ATPSCombatBaseCharacter
 
 public:
 	ATPSCombatHeroCharacter();
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	virtual UHeroUIComponent* GetHeroUIComponent() const override;
 
 private:
 #pragma region  Components
@@ -32,15 +37,18 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat", meta=(AllowPrivateAccess = "true"))
 	UHeroCombatComponent* HeroCombatComponent;
+
+
 #pragma endregion
 
 protected:
 	virtual void PossessedBy(AController* NewController) override;
 
-	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="UI", meta=(AllowPrivateAccess = "true"))
+	UHeroUIComponent* HeroUIComponent;
 
 public:
 	FORCEINLINE UHeroCombatComponent* GetHeroCombatComponent() const { return HeroCombatComponent; }

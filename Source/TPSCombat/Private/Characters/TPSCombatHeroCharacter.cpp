@@ -14,6 +14,7 @@
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
 
 #include "TPSCombatDebugHelper.h"
+#include "Components/UI/HeroUIComponent.h"
 
 ATPSCombatHeroCharacter::ATPSCombatHeroCharacter()
 {
@@ -39,6 +40,7 @@ ATPSCombatHeroCharacter::ATPSCombatHeroCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.0f;
 
 	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
+	HeroUIComponent = CreateDefaultSubobject<UHeroUIComponent>(TEXT("HeroUIComponent"));
 }
 
 void ATPSCombatHeroCharacter::PossessedBy(AController* NewController)
@@ -57,6 +59,16 @@ void ATPSCombatHeroCharacter::PossessedBy(AController* NewController)
 UPawnCombatComponent* ATPSCombatHeroCharacter::GetPawnCombatComponent() const
 {
 	return HeroCombatComponent;
+}
+
+UPawnUIComponent* ATPSCombatHeroCharacter::GetPawnUIComponent() const
+{
+	return HeroUIComponent;
+}
+
+UHeroUIComponent* ATPSCombatHeroCharacter::GetHeroUIComponent() const
+{
+	return HeroUIComponent;
 }
 
 void ATPSCombatHeroCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)

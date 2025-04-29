@@ -7,6 +7,8 @@
 #include "AttributeSet.h"
 #include "TPSCombatAttributeSet.generated.h"
 
+class IPawnUIInterface;
+
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
@@ -52,4 +54,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category="Damage")
 	FGameplayAttributeData DefensePower;
 	ATTRIBUTE_ACCESSORS(UTPSCombatAttributeSet, DefensePower);
+
+private:
+	TWeakInterfacePtr<IPawnUIInterface> CachedPawnUIInterface;
 };

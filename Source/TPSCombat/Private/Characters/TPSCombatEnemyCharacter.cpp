@@ -8,6 +8,9 @@
 #include "Engine/AssetManager.h"
 
 #include "TPSCombatDebugHelper.h"
+#include "Components/WidgetComponent.h"
+#include "Components/UI/EnemyUIComponent.h"
+#include "Widgets/TPSCombatWidgetBase.h"
 
 ATPSCombatEnemyCharacter::ATPSCombatEnemyCharacter()
 {
@@ -24,6 +27,10 @@ ATPSCombatEnemyCharacter::ATPSCombatEnemyCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 1000.f;
 
 	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
+	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>(TEXT("EnemyUIComponent"));
+	EnemyHealthWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("EnemyHealthWidgetComponent"));
+
+	EnemyHealthWidgetComponent->SetupAttachment(GetMesh());
 }
 
 void ATPSCombatEnemyCharacter::PossessedBy(AController* NewController)
@@ -35,6 +42,25 @@ void ATPSCombatEnemyCharacter::PossessedBy(AController* NewController)
 UPawnCombatComponent* ATPSCombatEnemyCharacter::GetPawnCombatComponent() const
 {
 	return EnemyCombatComponent;
+}
+
+UPawnUIComponent* ATPSCombatEnemyCharacter::GetPawnUIComponent() const
+{
+	return EnemyUIComponent;
+}
+
+UEnemyUIComponent* ATPSCombatEnemyCharacter::GetEnemyUIComponent() const
+{
+	return EnemyUIComponent;
+}
+
+void ATPSCombatEnemyCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	if (UTPSCombatWidgetBase* EnemyHealthWidget = Cast<UTPSCombatWidgetBase>(EnemyHealthWidgetComponent->GetUserWidgetObject()))
+	{
+		EnemyHealthWidget->InitEnemyCreatedWidget(this);
+	}
 }
 
 void ATPSCombatEnemyCharacter::InitEnemyStartUpData()

@@ -7,6 +7,8 @@
 #include "TPSCombatEnemyCharacter.generated.h"
 
 class UEnemyCombatComponent;
+class UEnemyUIComponent;
+class UWidgetComponent;
 /**
  * 
  */
@@ -17,14 +19,24 @@ class TPSCOMBAT_API ATPSCombatEnemyCharacter : public ATPSCombatBaseCharacter
 
 public:
 	ATPSCombatEnemyCharacter();
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
 
 protected:
+	virtual void BeginPlay() override;
 	virtual void PossessedBy(AController* NewController) override;
 
-	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat")
 	UEnemyCombatComponent* EnemyCombatComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="UI")
+	UEnemyUIComponent* EnemyUIComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="UI")
+	UWidgetComponent* EnemyHealthWidgetComponent;
 
 private:
 	void InitEnemyStartUpData();
