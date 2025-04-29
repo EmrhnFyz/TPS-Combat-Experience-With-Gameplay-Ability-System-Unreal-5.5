@@ -92,7 +92,6 @@ void ATPSCombatHeroCharacter::SetupPlayerInputComponent(class UInputComponent* P
 void ATPSCombatHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	Debug::Print(TEXT("WarriorHeroCharacter BeginPlay"));
 }
 
 void ATPSCombatHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)

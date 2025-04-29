@@ -58,7 +58,6 @@ void UTPSCombatAttributeSet::PostGameplayEffectExecute(const struct FGameplayEff
 
 		const float NewCurrentHealth = FMath::Clamp(OldHealth - DamageDone, 0.f, GetMaxHealth());
 		FString Msg = TEXT("Damage Done: ") + FString::SanitizeFloat(DamageDone) + TEXT(" Old Health") + FString::SanitizeFloat(OldHealth) + TEXT(" New Health: ") + FString::SanitizeFloat(NewCurrentHealth);
-		Debug::Print(Msg);
 		SetCurrentHealth(NewCurrentHealth);
 
 		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());

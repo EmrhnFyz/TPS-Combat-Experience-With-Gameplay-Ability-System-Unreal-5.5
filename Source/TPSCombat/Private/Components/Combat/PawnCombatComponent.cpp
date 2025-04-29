@@ -4,7 +4,6 @@
 #include "Components/Combat/PawnCombatComponent.h"
 #include "Components/BoxComponent.h"
 
-#include "TPSCombatDebugHelper.h"
 #include "Items/Weapons/TPSCombatWeaponBase.h"
 
 void UPawnCombatComponent::RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegister, ATPSCombatWeaponBase* InWeaponToRegister, bool bRegisterAsEquippedWeapon)
@@ -22,7 +21,6 @@ void UPawnCombatComponent::RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegis
 	}
 
 	const FString WeaponString = FString::Printf(TEXT("A weapon named: %s with tag: %s was registered"), *InWeaponToRegister->GetName(), *InWeaponTagToRegister.ToString());
-	Debug::Print(WeaponString);
 }
 
 ATPSCombatWeaponBase* UPawnCombatComponent::GetCharacterCarriedWeaponByTag(FGameplayTag InWeaponTagToGet) const

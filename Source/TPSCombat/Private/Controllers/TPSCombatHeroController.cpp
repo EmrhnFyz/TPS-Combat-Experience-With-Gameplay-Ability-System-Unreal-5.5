@@ -2,3 +2,13 @@
 
 
 #include "Controllers/TPSCombatHeroController.h"
+
+ATPSCombatHeroController::ATPSCombatHeroController()
+{
+	HeroTeamId = FGenericTeamId(0);
+}
+
+FGenericTeamId ATPSCombatHeroController::GetGenericTeamId() const
+{
+	return HeroTeamId;
+}
