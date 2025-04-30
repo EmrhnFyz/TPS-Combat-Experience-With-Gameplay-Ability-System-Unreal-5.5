@@ -24,4 +24,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="TPSCombat|Ability")
 	void RemoveGrantedAbilitySpecHandles(UPARAM(ref)
 		TArray<FGameplayAbilitySpecHandle>& InSpecHandlesToRemove);
+	UFUNCTION(BlueprintCallable, Category="TPSCombat|Ability")
+	bool TryActivateAbilityByTag(FGameplayTag AbilityTagToActivate);
 };

@@ -21,6 +21,8 @@ public:
 	ATPSCombatEnemyCharacter* GetEnemyCharacterFromActorInfo();
 	UFUNCTION(BlueprintPure, Category="TPSCombat|Ability")
 	UEnemyCombatComponent* GetEnemyCombatComponentFromActorInfo();
+	UFUNCTION(BlueprintPure, Category="TPSCombat|Ability")
+	FGameplayEffectSpecHandle MakeEnemyDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, const FScalableFloat& InDamageScalableFloat);
 
 private:
 	TWeakObjectPtr<ATPSCombatEnemyCharacter> CachedEnemyCharacter;

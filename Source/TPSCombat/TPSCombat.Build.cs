@@ -9,7 +9,16 @@ public class TPSCombat : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
 		PublicDependencyModuleNames.AddRange(new[]
-			{ "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "GameplayTags", "GameplayTasks" });
+		{
+			"Core",
+			"CoreUObject",
+			"Engine", "InputCore",
+			"EnhancedInput",
+			"GameplayTags",
+			"GameplayTasks",
+			"AnimGraphRuntime",
+			"MotionWarping"
+		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });
 

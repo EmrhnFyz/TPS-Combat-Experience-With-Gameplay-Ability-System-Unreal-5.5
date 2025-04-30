@@ -4,6 +4,7 @@
 #include "Characters/TPSCombatBaseCharacter.h"
 #include "AbilitySystem/TPSCombatAttributeSet.h"
 #include "AbilitySystem/TPSCombatAbilitySystemComponent.h"
+#include "MotionWarpingComponent.h"
 
 // Sets default values
 ATPSCombatBaseCharacter::ATPSCombatBaseCharacter()
@@ -16,6 +17,8 @@ ATPSCombatBaseCharacter::ATPSCombatBaseCharacter()
 
 	TPSCombatAbilitySystemComponent = CreateDefaultSubobject<UTPSCombatAbilitySystemComponent>(TEXT("TPSCombatAbilitySystemComponent"));
 	TPSCombatAttributeSet = CreateDefaultSubobject<UTPSCombatAttributeSet>(TEXT("TPSCombatAttributeSet"));
+
+	MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
 }
 
 UAbilitySystemComponent* ATPSCombatBaseCharacter::GetAbilitySystemComponent() const

@@ -41,7 +41,7 @@ UTPSCombatAbilitySystemComponent* UTPSCombatGameplayAbility::GetTPSCombatAbility
 	return Cast<UTPSCombatAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
 }
 
-FActiveGameplayEffectHandle UTPSCombatGameplayAbility::NativeApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle)
+FActiveGameplayEffectHandle UTPSCombatGameplayAbility::NativeApplyGameplayEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle)
 {
 	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
 
@@ -50,9 +50,9 @@ FActiveGameplayEffectHandle UTPSCombatGameplayAbility::NativeApplyEffectSpecHand
 	return GetTPSCombatAbilitySystemComponentFromActorInfo()->ApplyGameplayEffectSpecToTarget(*InSpecHandle.Data, TargetASC);
 }
 
-FActiveGameplayEffectHandle UTPSCombatGameplayAbility::BP_ApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle, ETPSCombatSuccessType& OutSuccessType)
+FActiveGameplayEffectHandle UTPSCombatGameplayAbility::BP_ApplyGameplayEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle, ETPSCombatSuccessType& OutSuccessType)
 {
-	FActiveGameplayEffectHandle ActiveGameplayEffectHandle = NativeApplyEffectSpecHandleToTarget(TargetActor, InSpecHandle);
+	FActiveGameplayEffectHandle ActiveGameplayEffectHandle = NativeApplyGameplayEffectSpecHandleToTarget(TargetActor, InSpecHandle);
 
 	OutSuccessType = ActiveGameplayEffectHandle.WasSuccessfullyApplied() ? ETPSCombatSuccessType::Successful : ETPSCombatSuccessType::Failed;
 

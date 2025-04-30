@@ -2,6 +2,7 @@
 
 
 #include "Items/Weapons/TPSCombatWeaponBase.h"
+#include "TPSCombatFunctionLibrary.h"
 #include  "Components/BoxComponent.h"
 // Sets default values
 ATPSCombatWeaponBase::ATPSCombatWeaponBase()
@@ -25,15 +26,12 @@ void ATPSCombatWeaponBase::OnCollisionBoxBeginOverlap(UPrimitiveComponent* Overl
 	APawn* WeaponOwningPawn = GetInstigator<APawn>();
 
 	checkf(WeaponOwningPawn, TEXT("Forgot to assign an instigator as  the owning pawn of the weapon: %s"), *GetName());
-
 	if (APawn* HitPawn = Cast<APawn>(OtherActor))
 	{
-		if (WeaponOwningPawn != HitPawn)
+		if (UTPSCombatFunctionLibrary::IsTargetPawnHostile(WeaponOwningPawn, HitPawn))
 		{
 			OnWeaponHitTarget.ExecuteIfBound(OtherActor);
 		}
-
-		//TODO: Implement hit check for enemy characters
 	}
 }
 
@@ -45,11 +43,9 @@ void ATPSCombatWeaponBase::OnCollisionBoxEndOverlap(UPrimitiveComponent* Overlap
 
 	if (APawn* HitPawn = Cast<APawn>(OtherActor))
 	{
-		if (WeaponOwningPawn != HitPawn)
+		if (UTPSCombatFunctionLibrary::IsTargetPawnHostile(WeaponOwningPawn, HitPawn))
 		{
 			OnWeaponPulledFromTarget.ExecuteIfBound(OtherActor);
 		}
-
-		//TODO: Implement hit check for enemy characters
 	}
 }

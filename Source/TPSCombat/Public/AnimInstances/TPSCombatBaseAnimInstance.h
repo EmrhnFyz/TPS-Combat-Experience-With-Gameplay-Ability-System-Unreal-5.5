@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
+#include "GameplayTagContainer.h"
 #include "TPSCombatBaseAnimInstance.generated.h"
 
 /**
@@ -13,5 +14,8 @@ UCLASS()
 class TPSCOMBAT_API UTPSCombatBaseAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
-	
+
+protected:
+	UFUNCTION(BlueprintPure, meta =(Bluprint))
+	bool DoesOwnerHaveTag(FGameplayTag TagToCheck) const;
 };

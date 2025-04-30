@@ -37,4 +37,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="TPSCombat|FunctionLibrary", meta=(DisplayName="Get Pawn Combat Component From Actor", ExpandEnumAsExecs="OutValidType"))
 	static UPawnCombatComponent* BP_GetPawnCombatComponentFromActor(AActor* InActor, ETPSCombatValidType& OutValidType);
+
+	UFUNCTION(BlueprintPure, Category="TPSCombat|FunctionLibrary")
+	static bool IsTargetPawnHostile(APawn* QueryPawn, APawn* TargetPawn);
 };
