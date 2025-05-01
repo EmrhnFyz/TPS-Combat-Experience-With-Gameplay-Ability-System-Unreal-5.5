@@ -9,7 +9,7 @@
 
 class UPawnCombatComponent;
 class UTPSCombatAbilitySystemComponent;
-
+struct FScalableFloat;
 
 /**
  * 
@@ -40,4 +40,7 @@ public:
 
 	UFUNCTION(BlueprintPure, Category="TPSCombat|FunctionLibrary")
 	static bool IsTargetPawnHostile(APawn* QueryPawn, APawn* TargetPawn);
+
+	UFUNCTION(BlueprintPure, Category="TPSCombat|FunctionLibrary", meta=(CompactNodeTitle = "GetValueAtLevel"))
+	static float GetScalableFloatValueAtLevel(const FScalableFloat& InScalableFloat, float InLevel = 1.0);
 };

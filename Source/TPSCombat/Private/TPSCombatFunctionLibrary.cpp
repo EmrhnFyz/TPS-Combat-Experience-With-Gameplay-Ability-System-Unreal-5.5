@@ -79,3 +79,8 @@ bool UTPSCombatFunctionLibrary::IsTargetPawnHostile(APawn* QueryPawn, APawn* Tar
 
 	return false;
 }
+
+float UTPSCombatFunctionLibrary::GetScalableFloatValueAtLevel(const FScalableFloat& InScalableFloat, float InLevel)
+{
+	return InScalableFloat.GetValueAtLevel(InLevel);
+}
