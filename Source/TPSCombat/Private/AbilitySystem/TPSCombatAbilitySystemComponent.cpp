@@ -2,6 +2,8 @@
 
 
 #include "AbilitySystem/TPSCombatAbilitySystemComponent.h"
+
+#include "TPSCombatGameplayTags.h"
 #include "AbilitySystem/Abilities/TPSCombatGameplayAbility.h"
 
 void UTPSCombatAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InInputTag)
@@ -24,6 +26,18 @@ void UTPSCombatAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag&
 
 void UTPSCombatAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag& InInputTag)
 {
+	if (!InInputTag.IsValid() || !InInputTag.MatchesTag(TPSCombatGameplayTags::InputTag_MustBeHeld))
+	{
+		return;
+	}
+
+	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
+	{
+		if (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InInputTag) && AbilitySpec.IsActive())
+		{
+			CancelAbilityHandle(AbilitySpec.Handle);
+		}
+	}
 }
 
 void UTPSCombatAbilitySystemComponent::GrantHeroWeaponAbilities(const TArray<FHeroAbilitySet>& InWeaponDefaultAbilities, int32 ApplyLevel, TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandles)
