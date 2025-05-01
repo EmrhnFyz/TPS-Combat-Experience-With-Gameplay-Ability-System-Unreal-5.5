@@ -47,4 +47,7 @@ public:
 
 	UFUNCTION(BlueprintPure, Category="TPSCombat|FunctionLibrary")
 	static FGameplayTag ComputeHitReactDirectionTag(AActor* InAttacker, AActor* InVictim, float& OutAngleDifference);
+
+	UFUNCTION(BlueprintPure, Category="TPSCombat|FunctionLibrary")
+	static bool IsValidBlock(AActor* InAttacker, AActor* InDefender);
 };

@@ -124,3 +124,12 @@ FGameplayTag UTPSCombatFunctionLibrary::ComputeHitReactDirectionTag(AActor* InAt
 
 	return TPSCombatGameplayTags::Shared_Status_HitReact_Front;
 }
+
+bool UTPSCombatFunctionLibrary::IsValidBlock(AActor* InAttacker, AActor* InDefender)
+{
+	check(InAttacker && InDefender);
+
+	const float DotResult = FVector::DotProduct(InAttacker->GetActorForwardVector(), InDefender->GetActorForwardVector());
+
+	return DotResult < -0.1f;
+}

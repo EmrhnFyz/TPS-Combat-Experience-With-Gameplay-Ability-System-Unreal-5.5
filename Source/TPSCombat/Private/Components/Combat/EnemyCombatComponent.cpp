@@ -4,6 +4,7 @@
 #include "Components/Combat/EnemyCombatComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "TPSCombatGameplayTags.h"
+#include "TPSCombatFunctionLibrary.h"
 
 void UEnemyCombatComponent::OnHitTargetActor(AActor* HitActor)
 {
@@ -17,13 +18,13 @@ void UEnemyCombatComponent::OnHitTargetActor(AActor* HitActor)
 	// TODO: Implement block check
 	bool bIsValidBlock = false;
 
-	constexpr bool bIsPlayerBlocking = false;
+	const bool bIsPlayerBlocking = UTPSCombatFunctionLibrary::NativeDoesActorHaveTag(HitActor, TPSCombatGameplayTags::Player_Status_Block);
 	constexpr bool bIsAttackUnblockable = false;
 
 
 	if (bIsPlayerBlocking && !bIsAttackUnblockable)
 	{
-		// TODO: Check iof the block is valid	
+		bIsValidBlock = UTPSCombatFunctionLibrary::IsValidBlock(GetOwningPawn(), HitActor);
 	}
 
 	FGameplayEventData EventData;
@@ -31,7 +32,7 @@ void UEnemyCombatComponent::OnHitTargetActor(AActor* HitActor)
 	EventData.Target = HitActor;
 	if (bIsValidBlock)
 	{
-		//TODO: Hande Successful block
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitActor, TPSCombatGameplayTags::Player_Event_SuccessfulBlock, EventData);
 	}
 	else
 	{
