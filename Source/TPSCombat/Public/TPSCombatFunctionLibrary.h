@@ -9,6 +9,7 @@
 
 class UPawnCombatComponent;
 class UTPSCombatAbilitySystemComponent;
+struct FGameplayTag;
 struct FScalableFloat;
 
 /**
@@ -43,4 +44,7 @@ public:
 
 	UFUNCTION(BlueprintPure, Category="TPSCombat|FunctionLibrary", meta=(CompactNodeTitle = "GetValueAtLevel"))
 	static float GetScalableFloatValueAtLevel(const FScalableFloat& InScalableFloat, float InLevel = 1.0);
+
+	UFUNCTION(BlueprintPure, Category="TPSCombat|FunctionLibrary")
+	static FGameplayTag ComputeHitReactDirectionTag(AActor* InAttacker, AActor* InVictim, float& OutAngleDifference);
 };
