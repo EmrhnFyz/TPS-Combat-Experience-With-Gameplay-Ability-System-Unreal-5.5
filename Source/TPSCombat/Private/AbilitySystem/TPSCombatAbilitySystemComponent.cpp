@@ -20,7 +20,21 @@ void UTPSCombatAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag&
 			continue;
 		}
 
-		TryActivateAbility(AbilitySpec.Handle);
+		if (InInputTag.MatchesTag(TPSCombatGameplayTags::InputTag_Toggleable))
+		{
+			if (AbilitySpec.IsActive())
+			{
+				CancelAbilityHandle(AbilitySpec.Handle);
+			}
+			else
+			{
+				TryActivateAbility(AbilitySpec.Handle);
+			}
+		}
+		else
+		{
+			TryActivateAbility(AbilitySpec.Handle);
+		}
 	}
 }
 
