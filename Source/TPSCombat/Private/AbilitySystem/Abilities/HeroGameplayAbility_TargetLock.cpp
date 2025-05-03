@@ -42,6 +42,8 @@ void UHeroGameplayAbility_TargetLock::OnTargetLockTick(float DeltaTime)
 		UTPSCombatFunctionLibrary::NativeDoesActorHaveTag(GetHeroCharacterFromActorInfo(), TPSCombatGameplayTags::Shared_Status_Death))
 	{
 		CancelTargetLockAbility();
+
+		return;
 	}
 
 	SetTargetLockWidgetPosition();
@@ -51,17 +53,20 @@ void UHeroGameplayAbility_TargetLock::OnTargetLockTick(float DeltaTime)
 		&&
 		!UTPSCombatFunctionLibrary::NativeDoesActorHaveTag(GetHeroCharacterFromActorInfo(), TPSCombatGameplayTags::Player_Status_Block);
 
+	FRotator LookAtRot = UKismetMathLibrary::FindLookAtRotation(
+		GetHeroCharacterFromActorInfo()->GetActorLocation(),
+		CurrentLockedActor->GetActorLocation()
+	);
+
+	LookAtRot -= FRotator(TargetLockCameraOffset, 0.f, 0.f);
+
+	const FRotator CurrentControlRot = GetHeroControllerFromActorInfo()->GetControlRotation();
+	const FRotator TargetRot = FMath::RInterpTo(CurrentControlRot, LookAtRot, DeltaTime, TargetLockRotationInterpSpeed);
+
+	GetHeroControllerFromActorInfo()->SetControlRotation(FRotator(TargetRot.Pitch, TargetRot.Yaw, 0.f));
+
 	if (bShouldOverrideRotation)
 	{
-		const FRotator LookAtRot = UKismetMathLibrary::FindLookAtRotation(
-			GetHeroCharacterFromActorInfo()->GetActorLocation(),
-			CurrentLockedActor->GetActorLocation()
-		);
-
-		const FRotator CurrentControlRot = GetHeroControllerFromActorInfo()->GetControlRotation();
-		const FRotator TargetRot = FMath::RInterpTo(CurrentControlRot, LookAtRot, DeltaTime, TargetLockRotationInterpSpeed);
-
-		GetHeroControllerFromActorInfo()->SetControlRotation(FRotator(TargetRot.Pitch, TargetRot.Yaw, 0.f));
 		GetHeroCharacterFromActorInfo()->SetActorRotation(FRotator(0.f, TargetRot.Yaw, 0.f));
 	}
 }

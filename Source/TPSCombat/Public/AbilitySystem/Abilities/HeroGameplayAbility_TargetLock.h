@@ -62,6 +62,9 @@ class TPSCOMBAT_API UHeroGameplayAbility_TargetLock : public UTPSCombatHeroGamep
 	UPROPERTY(EditDefaultsOnly, Category = "Target Lock")
 	UInputMappingContext* TargetLockMappingContext;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Target Lock")
+	float TargetLockCameraOffset = 20.f;
+
 	UFUNCTION(BlueprintCallable)
 	void SwitchTarget(const FGameplayTag& InSwitchDirectionTag);
 
