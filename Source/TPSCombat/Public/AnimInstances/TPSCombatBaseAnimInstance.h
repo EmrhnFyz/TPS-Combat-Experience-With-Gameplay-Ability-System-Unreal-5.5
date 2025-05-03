@@ -16,6 +16,6 @@ class TPSCOMBAT_API UTPSCombatBaseAnimInstance : public UAnimInstance
 	GENERATED_BODY()
 
 protected:
-	UFUNCTION(BlueprintPure, meta =(Bluprint))
+	UFUNCTION(BlueprintPure, meta = (BlueprintThreadSafe))
 	bool DoesOwnerHaveTag(FGameplayTag TagToCheck) const;
 };
