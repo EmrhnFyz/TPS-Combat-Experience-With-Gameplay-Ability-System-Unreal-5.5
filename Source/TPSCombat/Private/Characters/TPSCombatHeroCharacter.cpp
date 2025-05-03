@@ -12,8 +12,7 @@
 #include "Components/Combat/HeroCombatComponent.h"
 #include "AbilitySystem/TPSCombatAbilitySystemComponent.h"
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
-
-#include "TPSCombatDebugHelper.h"
+#include "AbilitySystemBlueprintLibrary.h"
 #include "Components/UI/HeroUIComponent.h"
 
 ATPSCombatHeroCharacter::ATPSCombatHeroCharacter()
@@ -85,6 +84,8 @@ void ATPSCombatHeroCharacter::SetupPlayerInputComponent(class UInputComponent* P
 	UTPSCombatInputComponent* TPSCombatInputComponent = CastChecked<UTPSCombatInputComponent>(PlayerInputComponent);
 	TPSCombatInputComponent->BindNativeInputAction(InputConfigDataAsset, TPSCombatGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
 	TPSCombatInputComponent->BindNativeInputAction(InputConfigDataAsset, TPSCombatGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
+	TPSCombatInputComponent->BindNativeInputAction(InputConfigDataAsset, TPSCombatGameplayTags::InputTag_SwitchTarget, ETriggerEvent::Triggered, this, &ThisClass::Input_SwitchTargetTriggered);
+	TPSCombatInputComponent->BindNativeInputAction(InputConfigDataAsset, TPSCombatGameplayTags::InputTag_SwitchTarget, ETriggerEvent::Completed, this, &ThisClass::Input_SwitchTargetCompleted);
 
 	TPSCombatInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ThisClass::Input_AbilityInputReleased);
 }
@@ -127,6 +128,22 @@ void ATPSCombatHeroCharacter::Input_Look(const FInputActionValue& InputActionVal
 	{
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void ATPSCombatHeroCharacter::Input_SwitchTargetTriggered(const FInputActionValue& InputActionValue)
+{
+	SwitchDirection = InputActionValue.Get<FVector2D>();
+}
+
+void ATPSCombatHeroCharacter::Input_SwitchTargetCompleted(const FInputActionValue& InputActionValue)
+{
+	FGameplayEventData Data;
+
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+		this,
+		SwitchDirection.X > 0.f ? TPSCombatGameplayTags::Player_Event_SwitchTarget_Right : TPSCombatGameplayTags::Player_Event_SwitchTarget_Left,
+		Data
+	);
 }
 
 void ATPSCombatHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
