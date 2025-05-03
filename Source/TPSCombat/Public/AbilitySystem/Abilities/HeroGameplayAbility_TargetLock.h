@@ -47,6 +47,9 @@ class TPSCOMBAT_API UHeroGameplayAbility_TargetLock : public UTPSCombatHeroGamep
 	UPROPERTY(EditDefaultsOnly, Category = "Target Lock")
 	TSubclassOf<UTPSCombatWidgetBase> TargetLockWidgetClass;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Target Lock")
+	float TargetLockRotationInterpSpeed = 5.f;
+
 	UPROPERTY()
 	TArray<AActor*> AvailableActorsToLock;
 
