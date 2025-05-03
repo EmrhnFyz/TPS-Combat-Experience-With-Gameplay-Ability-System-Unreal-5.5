@@ -133,3 +133,13 @@ bool UTPSCombatFunctionLibrary::IsValidBlock(AActor* InAttacker, AActor* InDefen
 
 	return DotResult < -0.1f;
 }
+
+bool UTPSCombatFunctionLibrary::ApplyGameplayEffectSpecHandleToTargetActor(AActor* InInstigator, AActor* InTargetActor, const FGameplayEffectSpecHandle& InSpecHandle)
+{
+	UTPSCombatAbilitySystemComponent* SourceASC = NativeGetTPSCombatASCFromActor(InInstigator);
+	UTPSCombatAbilitySystemComponent* TargetASC = NativeGetTPSCombatASCFromActor(InTargetActor);
+
+	FActiveGameplayEffectHandle ActiveGameplayEffectHandle = SourceASC->ApplyGameplayEffectSpecToTarget(*InSpecHandle.Data, TargetASC);
+
+	return ActiveGameplayEffectHandle.WasSuccessfullyApplied();
+}

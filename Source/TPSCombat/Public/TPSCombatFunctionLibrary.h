@@ -50,4 +50,7 @@ public:
 
 	UFUNCTION(BlueprintPure, Category="TPSCombat|FunctionLibrary")
 	static bool IsValidBlock(AActor* InAttacker, AActor* InDefender);
+
+	UFUNCTION(BlueprintCallable, Category="TPSCombat|FunctionLibrary")
+	static bool ApplyGameplayEffectSpecHandleToTargetActor(AActor* InInstigator, AActor* InTargetActor, const FGameplayEffectSpecHandle& InSpecHandle);
 };

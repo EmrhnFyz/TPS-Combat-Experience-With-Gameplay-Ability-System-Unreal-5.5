@@ -4,7 +4,10 @@
 #include "Items/TPSCombatProjectileBase.h"
 #include "Components/BoxComponent.h"
 #include "NiagaraComponent.h"
+#include "TPSCombatFunctionLibrary.h"
+#include "TPSCombatGameplayTags.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "AbilitySystemBlueprintLibrary.h"
 
 // Sets default values
 ATPSCombatProjectileBase::ATPSCombatProjectileBase()
@@ -18,6 +21,8 @@ ATPSCombatProjectileBase::ATPSCombatProjectileBase()
 	ProjectileCollisionBox->SetCollisionResponseToChannel(ECC_Pawn, ECR_Block);
 	ProjectileCollisionBox->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Block);
 	ProjectileCollisionBox->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
+	ProjectileCollisionBox->OnComponentHit.AddUniqueDynamic(this, &ThisClass::OnProjectileHit);
+	ProjectileCollisionBox->OnComponentBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnProjectileBeginOverlap);
 
 	ProjectileNiagaraEffect = CreateDefaultSubobject<UNiagaraComponent>(TEXT("ProjectileNiagaraEffect"));
 	ProjectileNiagaraEffect->SetupAttachment(GetRootComponent());
@@ -35,4 +40,60 @@ ATPSCombatProjectileBase::ATPSCombatProjectileBase()
 void ATPSCombatProjectileBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (ProjectileDamagePolicy == EProjectileDamagePolicy::OnBeginOverlap)
+	{
+		ProjectileCollisionBox->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	}
+}
+
+void ATPSCombatProjectileBase::OnProjectileHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	BP_OnSpawnProjectileHitFX(Hit.ImpactPoint);
+
+	APawn* HitPawn = Cast<APawn>(OtherActor);
+
+	if (!HitPawn || !UTPSCombatFunctionLibrary::IsTargetPawnHostile(GetInstigator(), HitPawn))
+	{
+		Destroy();
+		return;
+	}
+
+	bool bIsValidBlock = false;
+	const bool bIsPlayerBlocking = UTPSCombatFunctionLibrary::NativeDoesActorHaveTag(HitPawn, TPSCombatGameplayTags::Player_Status_Block);
+
+	if (bIsPlayerBlocking)
+	{
+		bIsValidBlock = UTPSCombatFunctionLibrary::IsValidBlock(GetInstigator(), HitPawn);
+	}
+
+	FGameplayEventData Data;
+	Data.Instigator = this;
+	Data.Target = HitPawn;
+
+	if (bIsValidBlock)
+	{
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitPawn, TPSCombatGameplayTags::Player_Event_SuccessfulBlock, Data);
+	}
+	else
+	{
+		HandleApplyProjectileDamage(HitPawn, Data);
+	}
+
+	Destroy();
+}
+
+void ATPSCombatProjectileBase::OnProjectileBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+}
+
+void ATPSCombatProjectileBase::HandleApplyProjectileDamage(APawn* InHitPawn,const FGameplayEventData& InPayload)
+{
+	checkf(ProjectileGameplayEffectSpecHandle.IsValid(), TEXT("Forgot to assign a valid spec handle to the projectile %s!"), *GetActorNameOrLabel());
+	const bool bWasApplied = UTPSCombatFunctionLibrary::ApplyGameplayEffectSpecHandleToTargetActor(GetInstigator(), InHitPawn, ProjectileGameplayEffectSpecHandle);
+
+	if (bWasApplied)
+	{
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(InHitPawn, TPSCombatGameplayTags::Shared_Event_HitReact, InPayload);
+	}
 }
