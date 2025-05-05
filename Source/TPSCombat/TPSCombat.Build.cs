@@ -18,7 +18,8 @@ public class TPSCombat : ModuleRules
 			"GameplayTasks",
 			"AnimGraphRuntime",
 			"MotionWarping",
-			"Niagara"
+			"Niagara",
+			"NavigationSystem"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });
