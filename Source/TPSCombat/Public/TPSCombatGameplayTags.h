@@ -59,6 +59,7 @@ namespace TPSCombatGameplayTags
 
 	TPSCOMBAT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_Strafing);
 	TPSCOMBAT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_UnderAttack);
+	TPSCOMBAT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_Unblockable);
 
 
 	// Shared Tags
