@@ -5,7 +5,6 @@
 #include "GameplayEffectExtension.h"
 #include "TPSCombatFunctionLibrary.h"
 #include "TPSCombatGameplayTags.h"
-#include  "TPSCombatDebugHelper.h"
 #include "Components/UI/HeroUIComponent.h"
 #include "Components/UI/PawnUIComponent.h"
 #include "Interfaces/PawnUIInterface.h"
@@ -46,6 +45,21 @@ void UTPSCombatAttributeSet::PostGameplayEffectExecute(const struct FGameplayEff
 		const float NewCurrentRage = FMath::Clamp(GetCurrentRage(), 0.f, GetMaxRage());
 
 		SetCurrentRage(NewCurrentRage);
+
+		if (GetCurrentRage() == GetMaxRage())
+		{
+			UTPSCombatFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), TPSCombatGameplayTags::Player_Status_Rage_Full);	
+		}
+		else if (GetCurrentRage() == 0.f)
+		{
+			UTPSCombatFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), TPSCombatGameplayTags::Player_Status_Rage_None);
+		}
+		else
+		{
+			UTPSCombatFunctionLibrary::RemoveGameplayTagFromActorIfFound(Data.Target.GetAvatarActor(),TPSCombatGameplayTags::Player_Status_Rage_Full);
+			UTPSCombatFunctionLibrary::RemoveGameplayTagFromActorIfFound(Data.Target.GetAvatarActor(),TPSCombatGameplayTags::Player_Status_Rage_None);
+		}
+		
 		if (UHeroUIComponent* HeroUIComponent = CachedPawnUIInterface->GetHeroUIComponent())
 		{
 			HeroUIComponent->OnCurrentRageChanged.Broadcast(GetCurrentRage() / GetMaxRage());
