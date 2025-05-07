@@ -11,6 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "TPSCombatTypes/TPSCombatCountDownAction.h"
+#include "TPSCombatGameInstance.h"
 
 UTPSCombatAbilitySystemComponent* UTPSCombatFunctionLibrary::NativeGetTPSCombatASCFromActor(AActor* InActor)
 {
@@ -182,5 +183,59 @@ void UTPSCombatFunctionLibrary::CountDown(const UObject* WorldContextObject, flo
 		{
 			FoundAction->CancelAction();
 		}
+	}
+}
+
+UTPSCombatGameInstance* UTPSCombatFunctionLibrary::GetTPSCombatGameInstance(const UObject* WorldContextObject)
+{
+	if (GEngine)
+	{
+		if (UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
+		{
+			return World->GetGameInstance<UTPSCombatGameInstance>();
+		}
+	}
+
+	return nullptr;
+}
+
+void UTPSCombatFunctionLibrary::ToggleInputMode(const UObject* WorldContextObject, ETPSCombatInputMode InInputMode)
+{
+	APlayerController* PlayerController = nullptr;
+
+	if (GEngine)
+	{
+		if (UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
+		{
+			PlayerController = World->GetFirstPlayerController();
+		}
+	}
+
+	if (!PlayerController)
+	{
+		return;
+	}
+
+	FInputModeGameOnly GameOnlyMode;
+	FInputModeUIOnly UIOnlyMode;
+
+	switch (InInputMode)
+	{
+	case ETPSCombatInputMode::GameOnly:
+
+		PlayerController->SetInputMode(GameOnlyMode);
+		PlayerController->bShowMouseCursor = false;
+
+		break;
+
+	case ETPSCombatInputMode::UIOnly:
+
+		PlayerController->SetInputMode(UIOnlyMode);
+		PlayerController->bShowMouseCursor = true;
+
+		break;
+
+	default:
+		break;
 	}
 }

@@ -44,3 +44,10 @@ enum class ETPSCombatGameDifficulty : uint8
 	Hard,
 	VeryHard
 };
+
+UENUM(BlueprintType)
+enum class ETPSCombatInputMode : uint8
+{
+	GameOnly,
+	UIOnly
+};
