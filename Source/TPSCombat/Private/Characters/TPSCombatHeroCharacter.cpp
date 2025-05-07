@@ -14,6 +14,7 @@
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Components/UI/HeroUIComponent.h"
+#include "GameModes/TPSCombatGameMode.h"
 
 ATPSCombatHeroCharacter::ATPSCombatHeroCharacter()
 {
@@ -50,7 +51,34 @@ void ATPSCombatHeroCharacter::PossessedBy(AController* NewController)
 	{
 		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
 		{
-			LoadedData->GiveToAbilitySystemComponent(TPSCombatAbilitySystemComponent);
+			int32 AbilityApplyLevel = 1;
+
+			if (ATPSCombatGameMode* BaseGameMode = GetWorld()->GetAuthGameMode<ATPSCombatGameMode>())
+			{
+				switch (BaseGameMode->GetCurrentGameDifficulty())
+				{
+				case ETPSCombatGameDifficulty::Easy:
+					AbilityApplyLevel = 4;
+					break;
+
+				case ETPSCombatGameDifficulty::Normal:
+					AbilityApplyLevel = 3;
+					break;
+
+				case ETPSCombatGameDifficulty::Hard:
+					AbilityApplyLevel = 2;
+					break;
+
+				case ETPSCombatGameDifficulty::VeryHard:
+					AbilityApplyLevel = 1;
+					break;
+
+				default:
+					break;
+				}
+			}
+
+			LoadedData->GiveToAbilitySystemComponent(TPSCombatAbilitySystemComponent, AbilityApplyLevel);
 		}
 	}
 }

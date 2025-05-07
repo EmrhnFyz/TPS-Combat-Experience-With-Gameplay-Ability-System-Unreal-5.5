@@ -8,6 +8,7 @@
 #include "GenericTeamAgentInterface.h"
 #include "TPSCombatGameplayTags.h"
 #include "Components/Combat/PawnCombatComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "TPSCombatTypes/TPSCombatCountDownAction.h"
 

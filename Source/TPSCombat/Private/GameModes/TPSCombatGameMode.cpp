@@ -3,3 +3,8 @@
 
 #include "GameModes/TPSCombatGameMode.h"
 
+ATPSCombatGameMode::ATPSCombatGameMode()
+{
+	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bStartWithTickEnabled = true;
+}

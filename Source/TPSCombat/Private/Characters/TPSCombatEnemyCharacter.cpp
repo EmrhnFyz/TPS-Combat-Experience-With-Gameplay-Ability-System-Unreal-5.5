@@ -12,6 +12,7 @@
 #include "Components/BoxComponent.h"
 #include "Components/WidgetComponent.h"
 #include "Components/UI/EnemyUIComponent.h"
+#include "GameModes/TPSCombatGameMode.h"
 #include "Widgets/TPSCombatWidgetBase.h"
 
 ATPSCombatEnemyCharacter::ATPSCombatEnemyCharacter()
@@ -96,7 +97,7 @@ void ATPSCombatEnemyCharacter::OnBodyCollisionBoxBeginOverlap(UPrimitiveComponen
 {
 	if (APawn* HitPawn = Cast<APawn>(OtherActor))
 	{
-		if (UTPSCombatFunctionLibrary::IsTargetPawnHostile(this,HitPawn))
+		if (UTPSCombatFunctionLibrary::IsTargetPawnHostile(this, HitPawn))
 		{
 			EnemyCombatComponent->OnHitTargetActor(HitPawn);
 		}
@@ -109,16 +110,42 @@ void ATPSCombatEnemyCharacter::InitEnemyStartUpData()
 	{
 		return;
 	}
+	int32 AbilityApplyLevel = 1;
+
+	if (ATPSCombatGameMode* BaseGameMode = GetWorld()->GetAuthGameMode<ATPSCombatGameMode>())
+	{
+		switch (BaseGameMode->GetCurrentGameDifficulty())
+		{
+		case ETPSCombatGameDifficulty::Easy:
+			AbilityApplyLevel = 1;
+			break;
+
+		case ETPSCombatGameDifficulty::Normal:
+			AbilityApplyLevel = 2;
+			break;
+
+		case ETPSCombatGameDifficulty::Hard:
+			AbilityApplyLevel = 3;
+			break;
+
+		case ETPSCombatGameDifficulty::VeryHard:
+			AbilityApplyLevel = 4;
+			break;
+
+		default:
+			break;
+		}
+	}
 
 	UAssetManager::GetStreamableManager()
 		.RequestAsyncLoad(
 			CharacterStartUpData.ToSoftObjectPath(),
 			FStreamableDelegate::CreateLambda(
-				[this]()
+				[this,AbilityApplyLevel]()
 				{
 					if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.Get())
 					{
-						LoadedData->GiveToAbilitySystemComponent(TPSCombatAbilitySystemComponent);
+						LoadedData->GiveToAbilitySystemComponent(TPSCombatAbilitySystemComponent, AbilityApplyLevel);
 					}
 				}
 			)
