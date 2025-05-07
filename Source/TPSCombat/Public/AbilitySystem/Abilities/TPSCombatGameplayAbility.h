@@ -50,4 +50,8 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "Warrior|Ability")
 	bool GetAbilityRemainingCooldownByTag(FGameplayTag InCooldownTag,float& TotalCooldownTime,float& RemainingCooldownTime);
+
+	UFUNCTION(BlueprintCallable, Category="TPSCombat|Ability")
+	void ApplyGameplayAbilityEffectSpecHandleToHitResults(const FGameplayEffectSpecHandle& InSpecHandle, const TArray<FHitResult>& InHitResults);
+
 };
