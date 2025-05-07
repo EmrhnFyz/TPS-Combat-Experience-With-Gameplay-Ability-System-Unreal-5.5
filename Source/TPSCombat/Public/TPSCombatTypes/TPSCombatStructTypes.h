@@ -29,7 +29,7 @@ struct FHeroSpecialAbilitySet : public FHeroAbilitySet
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSoftObjectPtr<UMaterialInterface> AbilityIconMaterial;
+	TSoftObjectPtr<UMaterialInterface> SoftAbilityIconMaterial;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "Player.Cooldown"))
 	FGameplayTag AbilityCooldownTag;
@@ -48,7 +48,7 @@ struct FTPSCombatHeroWeaponData
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty="InputTag"))
 	TArray<FHeroAbilitySet> DefaultWeaponAbilities;
-	
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
 	TArray<FHeroSpecialAbilitySet> SpecialWeaponAbilities;
 

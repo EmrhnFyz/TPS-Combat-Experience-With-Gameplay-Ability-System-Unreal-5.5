@@ -9,6 +9,7 @@
 #include "TPSCombatGameplayTags.h"
 #include "Components/Combat/PawnCombatComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "TPSCombatTypes/TPSCombatCountDownAction.h"
 
 UTPSCombatAbilitySystemComponent* UTPSCombatFunctionLibrary::NativeGetTPSCombatASCFromActor(AActor* InActor)
 {
@@ -142,4 +143,43 @@ bool UTPSCombatFunctionLibrary::ApplyGameplayEffectSpecHandleToTargetActor(AActo
 	FActiveGameplayEffectHandle ActiveGameplayEffectHandle = SourceASC->ApplyGameplayEffectSpecToTarget(*InSpecHandle.Data, TargetASC);
 
 	return ActiveGameplayEffectHandle.WasSuccessfullyApplied();
+}
+
+void UTPSCombatFunctionLibrary::CountDown(const UObject* WorldContextObject, float TotalTime, float UpdateInterval, float& OutRemainingTime, ETPSCombatCountDownActionInput CountDownInput, ETPSCombatCountDownActionOutput& CountDownOutput, FLatentActionInfo LatentInfo)
+{
+	UWorld* World = nullptr;
+
+	if (GEngine)
+	{
+		World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull);
+	}
+
+	if (!World)
+	{
+		return;
+	}
+
+	FLatentActionManager& LatentActionManager = World->GetLatentActionManager();
+
+	FTPSCombatCountDownAction* FoundAction = LatentActionManager.FindExistingAction<FTPSCombatCountDownAction>(LatentInfo.CallbackTarget, LatentInfo.UUID);
+
+	if (CountDownInput == ETPSCombatCountDownActionInput::Start)
+	{
+		if (!FoundAction)
+		{
+			LatentActionManager.AddNewAction(
+				LatentInfo.CallbackTarget,
+				LatentInfo.UUID,
+				new FTPSCombatCountDownAction(TotalTime, UpdateInterval, OutRemainingTime, CountDownOutput, LatentInfo)
+			);
+		}
+	}
+
+	if (CountDownInput == ETPSCombatCountDownActionInput::Cancel)
+	{
+		if (FoundAction)
+		{
+			FoundAction->CancelAction();
+		}
+	}
 }

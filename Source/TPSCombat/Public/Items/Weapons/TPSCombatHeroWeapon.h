@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Items/Weapons/TPSCombatWeaponBase.h"
-#include "TpsCombatTypes/TPSCombatStructTypes.h"
+#include "TPSCombat/Public/TPSCombatTypes/TPSCombatStructTypes.h"
 #include "GameplayAbilitySpec.h"
 #include "TPSCombatHeroWeapon.generated.h"
 

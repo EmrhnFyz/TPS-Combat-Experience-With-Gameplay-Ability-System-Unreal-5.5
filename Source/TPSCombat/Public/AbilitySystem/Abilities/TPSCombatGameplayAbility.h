@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
 #include  "AbilitySystem/TPSCombatAbilitySystemComponent.h"
-#include "TpsCombatTypes/TPSCombatEnumTypes.h"
+#include "TPSCombat/Public/TPSCombatTypes/TPSCombatEnumTypes.h"
 #include "TPSCombatGameplayAbility.generated.h"
 
 class UPawnCombatComponent;

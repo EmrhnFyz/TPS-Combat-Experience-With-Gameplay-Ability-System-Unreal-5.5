@@ -20,3 +20,18 @@ enum class ETPSCombatSuccessType : uint8
 	Successful,
 	Failed,
 };
+
+UENUM()
+enum class ETPSCombatCountDownActionInput : uint8
+{
+	Start,
+	Cancel
+};
+
+UENUM()
+enum class ETPSCombatCountDownActionOutput : uint8
+{
+	Updated,
+	Completed,
+	Cancelled
+};

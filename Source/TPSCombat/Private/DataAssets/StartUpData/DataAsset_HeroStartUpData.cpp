@@ -2,7 +2,7 @@
 
 
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
-#include "TpsCombatTypes/TPSCombatStructTypes.h"
+#include "TPSCombat/Public/TPSCombatTypes/TPSCombatStructTypes.h"
 #include  "AbilitySystem/TPSCombatAbilitySystemComponent.h"
 #include "AbilitySystem/Abilities/TPSCombatGameplayAbility.h"
 
