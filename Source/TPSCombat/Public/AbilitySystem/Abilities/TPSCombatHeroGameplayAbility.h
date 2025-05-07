@@ -28,6 +28,9 @@ public:
 	UFUNCTION(BlueprintPure, Category="TPSCombat|Ability")
 	UHeroCombatComponent* GetHeroCombatComponentFromActorInfo();
 
+	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+	UHeroUIComponent* GetHeroUIComponentFromActorInfo();
+
 	UFUNCTION(BlueprintPure, Category="TPSCombat|Ability")
 	FGameplayEffectSpecHandle MakeHeroDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InUsedComboCount);
 

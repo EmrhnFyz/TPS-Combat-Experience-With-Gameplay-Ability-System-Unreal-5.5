@@ -86,6 +86,8 @@ void ATPSCombatHeroCharacter::SetupPlayerInputComponent(class UInputComponent* P
 	TPSCombatInputComponent->BindNativeInputAction(InputConfigDataAsset, TPSCombatGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
 	TPSCombatInputComponent->BindNativeInputAction(InputConfigDataAsset, TPSCombatGameplayTags::InputTag_SwitchTarget, ETriggerEvent::Triggered, this, &ThisClass::Input_SwitchTargetTriggered);
 	TPSCombatInputComponent->BindNativeInputAction(InputConfigDataAsset, TPSCombatGameplayTags::InputTag_SwitchTarget, ETriggerEvent::Completed, this, &ThisClass::Input_SwitchTargetCompleted);
+	TPSCombatInputComponent->BindNativeInputAction(InputConfigDataAsset, TPSCombatGameplayTags::InputTag_PickUp_Stones, ETriggerEvent::Started, this, &ThisClass::Input_PickUpStonesStarted);
+
 
 	TPSCombatInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ThisClass::Input_AbilityInputReleased);
 }
@@ -142,6 +144,17 @@ void ATPSCombatHeroCharacter::Input_SwitchTargetCompleted(const FInputActionValu
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
 		this,
 		SwitchDirection.X > 0.f ? TPSCombatGameplayTags::Player_Event_SwitchTarget_Right : TPSCombatGameplayTags::Player_Event_SwitchTarget_Left,
+		Data
+	);
+}
+
+void ATPSCombatHeroCharacter::Input_PickUpStonesStarted(const FInputActionValue& InputActionValue)
+{
+	FGameplayEventData Data;
+
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+		this,
+		TPSCombatGameplayTags::Player_Event_ConsumeStones,
 		Data
 	);
 }
