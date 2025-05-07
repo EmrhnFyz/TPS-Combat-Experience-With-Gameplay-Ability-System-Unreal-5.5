@@ -72,4 +72,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "TPSCombat|FunctionLibrary", meta = (WorldContext = "WorldContextObject"))
 	static void ToggleInputMode(const UObject* WorldContextObject, ETPSCombatInputMode InInputMode);
+
+	UFUNCTION(BlueprintCallable, Category = "TPSCombat|FunctionLibrary")
+	static void SaveCurrentGameDifficulty(ETPSCombatGameDifficulty InDifficultyToSave);
+
+	UFUNCTION(BlueprintCallable, Category = "TPSCombat|FunctionLibrary")
+	static bool TryLoadSavedGameDifficulty(ETPSCombatGameDifficulty& OutSavedDifficulty);
 };

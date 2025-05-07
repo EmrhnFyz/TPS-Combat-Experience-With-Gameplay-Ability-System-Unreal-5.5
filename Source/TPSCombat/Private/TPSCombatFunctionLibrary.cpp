@@ -12,6 +12,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "TPSCombatTypes/TPSCombatCountDownAction.h"
 #include "TPSCombatGameInstance.h"
+#include "SaveGame/TPSCombatSaveGame.h"
 
 UTPSCombatAbilitySystemComponent* UTPSCombatFunctionLibrary::NativeGetTPSCombatASCFromActor(AActor* InActor)
 {
@@ -238,4 +239,33 @@ void UTPSCombatFunctionLibrary::ToggleInputMode(const UObject* WorldContextObjec
 	default:
 		break;
 	}
+}
+
+void UTPSCombatFunctionLibrary::SaveCurrentGameDifficulty(ETPSCombatGameDifficulty InDifficultyToSave)
+{
+	USaveGame* SaveGameObject = UGameplayStatics::CreateSaveGameObject(UTPSCombatSaveGame::StaticClass());
+
+	if (UTPSCombatSaveGame* WarriorSaveGameObject = Cast<UTPSCombatSaveGame>(SaveGameObject))
+	{
+		WarriorSaveGameObject->SavedCurrentGameDifficulty = InDifficultyToSave;
+
+		const bool bWasSaved = UGameplayStatics::SaveGameToSlot(WarriorSaveGameObject, TPSCombatGameplayTags::GameData_SaveGame_Slot_1.GetTag().ToString(), 0);
+	}
+}
+
+bool UTPSCombatFunctionLibrary::TryLoadSavedGameDifficulty(ETPSCombatGameDifficulty& OutSavedDifficulty)
+{
+	if (UGameplayStatics::DoesSaveGameExist(TPSCombatGameplayTags::GameData_SaveGame_Slot_1.GetTag().ToString(), 0))
+	{
+		USaveGame* SaveGameObject = UGameplayStatics::LoadGameFromSlot(TPSCombatGameplayTags::GameData_SaveGame_Slot_1.GetTag().ToString(), 0);
+
+		if (UTPSCombatSaveGame* WarriorSaveGameObject = Cast<UTPSCombatSaveGame>(SaveGameObject))
+		{
+			OutSavedDifficulty = WarriorSaveGameObject->SavedCurrentGameDifficulty;
+
+			return true;
+		}
+	}
+
+	return false;
 }

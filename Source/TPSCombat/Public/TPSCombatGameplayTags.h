@@ -104,4 +104,6 @@ namespace TPSCombatGameplayTags
 	// Game Data tags
 	TPSCOMBAT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameData_Level_SurvivalGameModeMap);
 	TPSCOMBAT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameData_Level_MainMenuMap);
+
+	TPSCOMBAT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(GameData_SaveGame_Slot_1);
 }

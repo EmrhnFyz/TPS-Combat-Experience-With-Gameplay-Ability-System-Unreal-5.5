@@ -31,8 +31,13 @@ UCLASS()
 class TPSCOMBAT_API UTPSCombatGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
-
+public:
+	virtual void Init() override;
+	
 protected:
+	virtual void OnPreLoadMap(const FString& MapName);
+	virtual void OnDestinationWorldLoaded(UWorld* LoadedWorld);
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TArray<FTPSCombatGameLevelSet> GameLevelSets;
 

@@ -12,6 +12,13 @@
 void ATPSCombatSurvivalGameMode::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
 {
 	Super::InitGame(MapName, Options, ErrorMessage);
+
+	ETPSCombatGameDifficulty SavedGameDifficulty;
+
+	if (UTPSCombatFunctionLibrary::TryLoadSavedGameDifficulty(SavedGameDifficulty))
+	{
+		CurrentGameDifficulty = SavedGameDifficulty;
+	}
 }
 
 void ATPSCombatSurvivalGameMode::BeginPlay()
