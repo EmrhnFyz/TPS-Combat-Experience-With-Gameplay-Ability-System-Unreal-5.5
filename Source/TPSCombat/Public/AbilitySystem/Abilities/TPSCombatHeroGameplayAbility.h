@@ -28,7 +28,7 @@ public:
 	UFUNCTION(BlueprintPure, Category="TPSCombat|Ability")
 	UHeroCombatComponent* GetHeroCombatComponentFromActorInfo();
 
-	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+	UFUNCTION(BlueprintPure, Category = "TPSCombat|Ability")
 	UHeroUIComponent* GetHeroUIComponentFromActorInfo();
 
 	UFUNCTION(BlueprintPure, Category="TPSCombat|Ability")
@@ -36,5 +36,5 @@ public:
 
 private:
 	TWeakObjectPtr<ATPSCombatHeroCharacter> CachedHeroCharacter;
-	TWeakObjectPtr<ATPSCombatHeroController> CachedWarriorHeroController;
+	TWeakObjectPtr<ATPSCombatHeroController> CachedHeroController;
 };

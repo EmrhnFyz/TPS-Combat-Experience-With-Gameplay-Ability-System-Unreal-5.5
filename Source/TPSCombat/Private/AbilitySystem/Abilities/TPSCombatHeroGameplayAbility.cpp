@@ -19,12 +19,12 @@ ATPSCombatHeroCharacter* UTPSCombatHeroGameplayAbility::GetHeroCharacterFromActo
 
 ATPSCombatHeroController* UTPSCombatHeroGameplayAbility::GetHeroControllerFromActorInfo()
 {
-	if (!CachedWarriorHeroController.IsValid())
+	if (!CachedHeroController.IsValid())
 	{
-		CachedWarriorHeroController = Cast<ATPSCombatHeroController>(GetOwningActorFromActorInfo()->GetInstigatorController());
+		CachedHeroController = Cast<ATPSCombatHeroController>(GetOwningActorFromActorInfo()->GetInstigatorController());
 	}
 
-	return CachedWarriorHeroController.IsValid() ? CachedWarriorHeroController.Get() : Cast<ATPSCombatHeroController>(GetOwningActorFromActorInfo()->GetInstigatorController());
+	return CachedHeroController.IsValid() ? CachedHeroController.Get() : Cast<ATPSCombatHeroController>(GetOwningActorFromActorInfo()->GetInstigatorController());
 }
 
 UHeroCombatComponent* UTPSCombatHeroGameplayAbility::GetHeroCombatComponentFromActorInfo()

@@ -13,7 +13,7 @@ void UTPSCombatGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* A
 {
 	Super::OnGiveAbility(ActorInfo, Spec);
 
-	if (AbilityActivationPolicy == EWarriorAbilityActivationPolicy::OnGiven)
+	if (AbilityActivationPolicy == ETPSCombatAbilityActivationPolicy::OnGiven)
 	{
 		if (ActorInfo && !Spec.IsActive())
 		{
@@ -25,7 +25,7 @@ void UTPSCombatGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* A
 void UTPSCombatGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled)
 {
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
-	if (AbilityActivationPolicy == EWarriorAbilityActivationPolicy::OnGiven)
+	if (AbilityActivationPolicy == ETPSCombatAbilityActivationPolicy::OnGiven)
 	{
 		if (ActorInfo)
 		{

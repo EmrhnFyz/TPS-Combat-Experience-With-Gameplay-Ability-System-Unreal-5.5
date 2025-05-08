@@ -46,7 +46,7 @@ void UTPSCombatInputComponent::BindAbilityInputAction(const UDataAsset_InputConf
 {
 	checkf(InInputConfig, TEXT("Input Config data asset is null, cant bind input action!"));
 
-	for (const FWarriorInputActionConfig& AbilityInputActionConfig : InInputConfig->AbilityInputActions)
+	for (const FTPSCombatInputActionConfig& AbilityInputActionConfig : InInputConfig->AbilityInputActions)
 	{
 		if (!AbilityInputActionConfig.IsValid())
 		{

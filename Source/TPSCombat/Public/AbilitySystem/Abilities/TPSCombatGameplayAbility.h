@@ -12,7 +12,7 @@ class UPawnCombatComponent;
 class UTPSCombatAbilitySystemComponent;
 
 UENUM(BlueprintType)
-enum class EWarriorAbilityActivationPolicy : uint8
+enum class ETPSCombatAbilityActivationPolicy : uint8
 {
 	OnTriggered,
 	OnGiven
@@ -35,7 +35,7 @@ protected:
 	//~ End UGameplayAbility Interface
 
 	UPROPERTY(EditDefaultsOnly, Category="TPSCombatAbility")
-	EWarriorAbilityActivationPolicy AbilityActivationPolicy = EWarriorAbilityActivationPolicy::OnTriggered;
+	ETPSCombatAbilityActivationPolicy AbilityActivationPolicy = ETPSCombatAbilityActivationPolicy::OnTriggered;
 
 	UFUNCTION(BlueprintPure, Category="TPSCombat|Ability")
 	UPawnCombatComponent* GetPawnCombatComponentFromActorInfo() const;
@@ -48,10 +48,9 @@ protected:
 	UFUNCTION(BlueprintCallable, Category="TPSCombat|Ability", meta=(DisplayName="Apply Effect Spec Handle To Target Actor", ExpandEnumAsExecs="OutSuccessType"))
 	FActiveGameplayEffectHandle BP_ApplyGameplayEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle, ETPSCombatSuccessType& OutSuccessType);
 
-	UFUNCTION(BlueprintCallable, Category = "Warrior|Ability")
-	bool GetAbilityRemainingCooldownByTag(FGameplayTag InCooldownTag,float& TotalCooldownTime,float& RemainingCooldownTime);
+	UFUNCTION(BlueprintCallable, Category = "TPSCombat|Ability")
+	bool GetAbilityRemainingCooldownByTag(FGameplayTag InCooldownTag, float& TotalCooldownTime, float& RemainingCooldownTime);
 
 	UFUNCTION(BlueprintCallable, Category="TPSCombat|Ability")
 	void ApplyGameplayAbilityEffectSpecHandleToHitResults(const FGameplayEffectSpecHandle& InSpecHandle, const TArray<FHitResult>& InHitResults);
-
 };

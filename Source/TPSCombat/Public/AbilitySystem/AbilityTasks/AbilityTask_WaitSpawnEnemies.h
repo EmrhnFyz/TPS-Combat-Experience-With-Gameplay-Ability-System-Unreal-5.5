@@ -19,7 +19,7 @@ class TPSCOMBAT_API UAbilityTask_WaitSpawnEnemies : public UAbilityTask
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable, Category = "Warrior|AbilityTasks", meta = (DisplayName = "Wait Gameplay Event And Spawn Enemies", HidePin = "OwningAbility", DefaultToSelf = "OwningAbility", BlueprintInternalUseOnly = "true", NumToSpawn = "1", RandomSpawnRadius = "200"))
+	UFUNCTION(BlueprintCallable, Category = "TPSCombat|AbilityTasks", meta = (DisplayName = "Wait Gameplay Event And Spawn Enemies", HidePin = "OwningAbility", DefaultToSelf = "OwningAbility", BlueprintInternalUseOnly = "true", NumToSpawn = "1", RandomSpawnRadius = "200"))
 	static UAbilityTask_WaitSpawnEnemies* WaitSpawnEnemies(UGameplayAbility* OwningAbility,
 	                                                       FGameplayTag EventTag,
 	                                                       TSoftClassPtr<ATPSCombatEnemyCharacter>
@@ -27,7 +27,7 @@ public:
 	                                                       int32 NumToSpawn,
 	                                                       const FVector& SpawnOrigin,
 	                                                       float RandomSpawnRadius
-	                                                       );
+	);
 
 	UPROPERTY(BlueprintAssignable)
 	FWaitSpawnEnemiesDelegate OnSpawnFinished;
@@ -39,7 +39,7 @@ public:
 	virtual void Activate() override;
 	virtual void OnDestroy(bool bInOwnerFinished) override;
 	//~ End UGameplayTask Interface
-	
+
 private:
 	FGameplayTag CachedEventTag;
 	TSoftClassPtr<ATPSCombatEnemyCharacter> CachedSoftEnemyClassToSpawn;
@@ -47,9 +47,9 @@ private:
 	FVector CachedSpawnOrigin;
 	float CachedRandomSpawnRadius;
 	FDelegateHandle DelegateHandle;
-	
+
 
 	void OnGameplayEventReceived(const FGameplayEventData* InPayload);
-	
+
 	void OnEnemyClassLoaded();
 };

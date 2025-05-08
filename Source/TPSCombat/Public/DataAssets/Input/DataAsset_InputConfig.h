@@ -11,7 +11,7 @@ class UInputAction;
 class UInputMappingContext;
 
 USTRUCT(BlueprintType)
-struct FWarriorInputActionConfig
+struct FTPSCombatInputActionConfig
 {
 	GENERATED_BODY()
 
@@ -39,10 +39,10 @@ public:
 	UInputMappingContext* DefaultMappingContext;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
-	TArray<FWarriorInputActionConfig> NativeInputActions;
+	TArray<FTPSCombatInputActionConfig> NativeInputActions;
 
 	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
-	TArray<FWarriorInputActionConfig> AbilityInputActions;
+	TArray<FTPSCombatInputActionConfig> AbilityInputActions;
 };

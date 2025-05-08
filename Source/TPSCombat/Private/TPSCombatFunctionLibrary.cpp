@@ -245,11 +245,11 @@ void UTPSCombatFunctionLibrary::SaveCurrentGameDifficulty(ETPSCombatGameDifficul
 {
 	USaveGame* SaveGameObject = UGameplayStatics::CreateSaveGameObject(UTPSCombatSaveGame::StaticClass());
 
-	if (UTPSCombatSaveGame* WarriorSaveGameObject = Cast<UTPSCombatSaveGame>(SaveGameObject))
+	if (UTPSCombatSaveGame* TPSCombatSaveGameObject = Cast<UTPSCombatSaveGame>(SaveGameObject))
 	{
-		WarriorSaveGameObject->SavedCurrentGameDifficulty = InDifficultyToSave;
+		TPSCombatSaveGameObject->SavedCurrentGameDifficulty = InDifficultyToSave;
 
-		const bool bWasSaved = UGameplayStatics::SaveGameToSlot(WarriorSaveGameObject, TPSCombatGameplayTags::GameData_SaveGame_Slot_1.GetTag().ToString(), 0);
+		const bool bWasSaved = UGameplayStatics::SaveGameToSlot(TPSCombatSaveGameObject, TPSCombatGameplayTags::GameData_SaveGame_Slot_1.GetTag().ToString(), 0);
 	}
 }
 
@@ -259,9 +259,9 @@ bool UTPSCombatFunctionLibrary::TryLoadSavedGameDifficulty(ETPSCombatGameDifficu
 	{
 		USaveGame* SaveGameObject = UGameplayStatics::LoadGameFromSlot(TPSCombatGameplayTags::GameData_SaveGame_Slot_1.GetTag().ToString(), 0);
 
-		if (UTPSCombatSaveGame* WarriorSaveGameObject = Cast<UTPSCombatSaveGame>(SaveGameObject))
+		if (UTPSCombatSaveGame* TPSCombatSaveGameObject = Cast<UTPSCombatSaveGame>(SaveGameObject))
 		{
-			OutSavedDifficulty = WarriorSaveGameObject->SavedCurrentGameDifficulty;
+			OutSavedDifficulty = TPSCombatSaveGameObject->SavedCurrentGameDifficulty;
 
 			return true;
 		}
